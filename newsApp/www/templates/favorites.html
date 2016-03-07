@@ -1,0 +1,29 @@
+<ion-view view-title = "Favorite Stories">
+	<ion-content>
+		 <div class="card newsItem " ng-repeat= "news in favorites">
+  
+  		<div class="item item-text-wrap black row " ng-click = "openBrowser('{{news.link}}')">
+
+	<div class="col col-20 "> 
+    <img class="newsimage " ng-src="{{news.image}}"  > 
+     </div>
+
+     <div class="col col-80 ">
+    {{news.title}}
+   </div>
+     </div>
+     
+  <div class="item item-divider item-dark">
+    <p> via {{news.source}}
+
+<span  "{{news.time}}"></span>
+     </p>
+     
+  </div>
+  
+  
+</div>
+
+
+	</ion-content>
+</ion-view>

@@ -1,0 +1,503 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"__",
+				"__all__"
+			],
+			[
+				"vie",
+				"views"
+			],
+			[
+				"Feed",
+				"FeedSerializer"
+			],
+			[
+				"Feeds",
+				"Feeds"
+			],
+			[
+				"py",
+				"psycopg2"
+			],
+			[
+				"image",
+				"imageUrl"
+			],
+			[
+				"ima",
+				"imageUrl"
+			],
+			[
+				"fee",
+				"feedparser"
+			],
+			[
+				"m",
+				"max_length"
+			],
+			[
+				"BA",
+				"BASE_DIR"
+			],
+			[
+				"lin",
+				"LinkExtractor"
+			],
+			[
+				"Dmoz",
+				"DmozItem"
+			],
+			[
+				"H",
+				"HtmlXPathSelector"
+			],
+			[
+				"http",
+				"httpProvider"
+			],
+			[
+				"fu",
+				"function"
+			],
+			[
+				"new",
+				"newTask"
+			],
+			[
+				"re",
+				"response"
+			],
+			[
+				"paddin",
+				"padding-top"
+			],
+			[
+				"t",
+				"type	Attr"
+			],
+			[
+				"templ",
+				"templateUrl"
+			],
+			[
+				"B",
+				"BASE_DIR"
+			],
+			[
+				"con",
+				"confirm_password"
+			],
+			[
+				"co",
+				"confirm_password"
+			],
+			[
+				"creat",
+				"create_user"
+			],
+			[
+				"Acc",
+				"AccountManager"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"pa",
+				"padding-left"
+			],
+			[
+				"align",
+				"text-align"
+			],
+			[
+				"i",
+				"i	Tag"
+			],
+			[
+				"has",
+				"hasSession"
+			],
+			[
+				"ion",
+				"ion-nav-buttons"
+			],
+			[
+				"session",
+				"session_id"
+			],
+			[
+				"se",
+				"setSession"
+			],
+			[
+				"auth",
+				"authRoute"
+			],
+			[
+				"tem",
+				"templateUrl"
+			],
+			[
+				"Fav",
+				"favorites"
+			],
+			[
+				"n",
+				"newFavorites"
+			],
+			[
+				"hide",
+				"hideLoading"
+			],
+			[
+				"ge",
+				"getNextSongs"
+			],
+			[
+				"rand",
+				"randomSong"
+			],
+			[
+				"photo",
+				"photo-detail"
+			],
+			[
+				"top",
+				"margin-top"
+			],
+			[
+				"phot",
+				"photo-detail"
+			],
+			[
+				"te",
+				"templateUrl"
+			],
+			[
+				"tab",
+				"tab-photo"
+			],
+			[
+				"tempa",
+				"templateUrl"
+			],
+			[
+				"fir",
+				"firebaseObj"
+			],
+			[
+				"ath",
+				"authData"
+			],
+			[
+				"cre",
+				"createProfile"
+			],
+			[
+				"Auth",
+				"Authfuncs"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
+				"produc",
+				"products"
+			],
+			[
+				"To",
+				"TodoService"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"di",
+				"div	Tag"
+			],
+			[
+				"STATI",
+				"STATICFILES_DIRS"
+			],
+			[
+				"r",
+				"render"
+			],
+			[
+				"Todo",
+				"TodoSerializer"
+			],
+			[
+				"view",
+				"viewsets"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"ionic serve",
+			"cd templates"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/dopesavant/dev/spider"
+	],
+	"file_history":
+	[
+		"/Users/dopesavant/dev/spider/feeder/feeds/views.py",
+		"/Users/dopesavant/dev/spider/feeder/feeder/settings.py",
+		"/Users/dopesavant/dev/spider/parser.py",
+		"/Users/dopesavant/dev/spider/feeder/feeds/admin.py",
+		"/Users/dopesavant/dev/spider/newson6/newsapp/content/models.py",
+		"/Users/dopesavant/dev/spider/newson6/newsapp/laod.py",
+		"/Users/dopesavant/dev/spider/newson6/newson6/items.py",
+		"/Users/dopesavant/dev/spider/newson6/newsapp/newsapp/settings.py",
+		"/Users/dopesavant/dev/spider/newson6/newson6/spiders/on6.py",
+		"/Users/dopesavant/dev/spider/newson6/states.csv",
+		"/Users/dopesavant/dev/spider/newson6/newsapp/content/laod.py",
+		"/Users/dopesavant/dev/spider/socrata/socrata/items.py",
+		"/Users/dopesavant/dev/spider/socrata/dmoz/dmoz/items.py",
+		"/Users/dopesavant/dev/spider/socrata/all.json",
+		"/Users/dopesavant/dev/spider/socrata/socrata/spiders/spider.py",
+		"/Users/dopesavant/dev/spider/socrata/dmoz/dmoz/dmozdata.json",
+		"/Users/dopesavant/dev/spider/socrata/socrata/settings.py",
+		"/Users/dopesavant/dev/spider/socrata/dmoz/dmoz/spiders/DmozSpider.py",
+		"/Users/dopesavant/dev/spider/socrata/data.json",
+		"/Users/dopesavant/dev/localnews/hackernews/hackernews/items.py",
+		"/Users/dopesavant/dev/localnews/hackernews/hackernews/settings.py",
+		"/Users/dopesavant/dev/localnews/hackernews/hackernews/spiders/spider.py",
+		"/Users/dopesavant/dev/localnews/hackernews/items.json",
+		"/Users/dopesavant/dev/localnews/hackernews/movies.json",
+		"/Users/dopesavant/dev/tdab/static/js/js/services.js",
+		"/Users/dopesavant/dev/tdab/static/js/js/controllers.js",
+		"/Users/dopesavant/dev/tdab/static/js/app.js",
+		"/Users/dopesavant/dev/tdab/static/js/templates/home.html",
+		"/Users/dopesavant/dev/tdab/static/js/templates/add.html",
+		"/Users/dopesavant/dev/tdab/todo/models.py",
+		"/Users/dopesavant/dev/tdab/todo/serializers.py",
+		"/Users/dopesavant/dev/tdab/tdab/urls.py",
+		"/Users/dopesavant/dev/tdab/todo/admin.py",
+		"/Users/dopesavant/dev/tdab/todo/views.py",
+		"/Users/dopesavant/dev/tdab/tdab/settings.py",
+		"/Users/dopesavant/dev/tdab/templates/base.html",
+		"/Users/dopesavant/dev/tdab/authentication/permissions.py",
+		"/Users/dopesavant/dev/tdab/templates/authentication/register.html",
+		"/Users/dopesavant/dev/tdab/static/javascripts/authentication/controllers/register.controller.js",
+		"/Users/dopesavant/dev/tdab/static/javascripts/thinkster.js",
+		"/Users/dopesavant/dev/tdab/authentication/views.py",
+		"/Users/dopesavant/dev/tdab/thinkster_django_angular_boilerplate/urls.py",
+		"/Users/dopesavant/dev/tdab/authentication/models.py",
+		"/Users/dopesavant/dev/tdab/static/javascripts/authentication/services/authentication.service.js",
+		"/Users/dopesavant/dev/tdab/authentication/serializers.py",
+		"/Users/dopesavant/dev/tdab/thinkster_django_angular_boilerplate/settings.py",
+		"/Users/dopesavant/dev/ionic-course/code/www/templates/favorites.html",
+		"/Users/dopesavant/dev/ionic-course/code/www/templates/splash.html",
+		"/Users/dopesavant/dev/ionic-course/code/www/js/controllers.js",
+		"/Users/dopesavant/dev/ionic-course/code/www/templates/discover.html",
+		"/Users/dopesavant/dev/ionic-course/code/www/js/app.js",
+		"/Users/dopesavant/dev/ionic-course/code/www/js/services.js",
+		"/Users/dopesavant/dev/ionic-course/code/www/templates/tabs.html",
+		"/Users/dopesavant/dev/ngbook/index.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/photodetail.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/photoCtrl.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/services/prdctsrvc.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/app.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/css/style.css",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/tab-photo.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/chatctrl.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/index.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/tab-dash.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/tabs.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/photo-detail.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/partials/login-form.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/services/loginSrvc.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/login.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/settingCtrl.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/tab-account.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/login.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/templates/tab-chats.html",
+		"/Users/dopesavant/dev/ionic/myApps/www/img/ben.png",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/services/chatsrvc.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/productctrl.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers/controllers.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/services.js",
+		"/Users/dopesavant/dev/ionic/myApps/www/js/controllers.js",
+		"/Users/dopesavant/proj/work/Todo/models.py",
+		"/Users/dopesavant/proj/work/static/js/js/controllers.js",
+		"/Users/dopesavant/proj/work/static/js/js/services.js",
+		"/Users/dopesavant/proj/work/static/js/main.js",
+		"/Users/dopesavant/proj/work/templates/base.html",
+		"/Users/dopesavant/proj/work/work/settings.py",
+		"/Users/dopesavant/proj/work/static/js/untitled",
+		"/Users/dopesavant/proj/work/Todo/views.py",
+		"/Users/dopesavant/proj/work/work/urls.py",
+		"/Users/dopesavant/proj/work/Todo/admin.py",
+		"/Users/dopesavant/proj/work/Todo/serializers.py",
+		"/Users/dopesavant/proj/work/js",
+		"/Users/dopesavant/spayd/spay/mainpage/migrations/0005_auto_20151110_1916.py"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/dopesavant/spayd/spay/mainpage/migrations"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"psycopg2",
+			"playcu",
+			"photo",
+			"tab",
+			"id"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "feedapp.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 145.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

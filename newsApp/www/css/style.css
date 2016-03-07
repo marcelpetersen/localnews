@@ -1,0 +1,47 @@
+/* Empty. Add your own CSS if you like */
+
+.card.newsItem {
+	/*border-radius: 40px;*/
+	/*background: grey;*/
+	color: white;
+	box-shadow: 5px 10px 5px grey;
+	
+	border-radius: 10px;
+	/*height: 100px;*/
+}
+
+.item.black {
+	
+background: #360033; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #360033 , #0b8793); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #360033 , #0b8793); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+              
+	color: white;
+	font-size: 12px;
+	font-weight: 500;
+	font-family: Verdana, Geneva, sans-serif;
+	height: 75px;
+
+
+}
+
+.item.item-divider {
+	height: 20px;
+	
+}
+
+.newsimage{
+	border: 3px solid grey;
+	border-radius: 30px;
+	width: 55px;
+	height:55px;
+}
+
+
+.larger{
+	font-weight: bold;
+	font-size: 25px;
+	text-align: right;
+
+}
+

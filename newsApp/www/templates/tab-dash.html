@@ -1,0 +1,45 @@
+<ion-view view-title="Headline">
+  <ion-content class = "">
+  
+  <ion-refresher pulling-text = 'Pull to refresh...'
+  on-refresh = "doRefresh()"> </ion-refresher>
+    
+<ion-list>
+
+  
+  <div class="card newsItem " ng-repeat= "news in main">
+  
+  
+      <div class=" row item item-text-wrap black " ng-click = "openBrowser('{{news.link}}')">
+          <div class="col col-20 "> 
+              <img class="newsimage " ng-src="{{news.image}}"  > 
+           </div>
+
+           <div class="col col-70 ">
+                {{news.title}}
+           </div>
+     </div>
+   
+     
+  <div class=" row item item-divider item-dark ">
+    
+     <p class="col "> via {{news.source}}</p>
+      <div class="col  larger" >
+          
+           <p class="larger">   <i class="ion-ios-heart larger "  ng-click="addFavorites({{news}}) "></i>  &nbsp; &nbsp; &nbsp; 
+
+              <i class="ion-share larger"> </i>   
+              </p>  
+      </div> 
+  </div>
+
+ 
+</div>
+
+
+</ion-list>
+<button class="button button-block button-royal" ng-click = "getMore()"> More Headlines</button>
+<!-- <button class="button button-block button-royal" ng-click = "openBrowser('http://google.com')"> More</button> -->
+    
+  </ion-content>
+</ion-view>
