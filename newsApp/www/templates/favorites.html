@@ -1,29 +1,29 @@
 <ion-view view-title = "Favorite Stories">
 	<ion-content>
-		 <div class="card newsItem " ng-repeat= "news in favorites">
+	<ion-list class="" >
+    <ion-item ng-repeat ="favs in favorites" class = "blacks">
   
-  		<div class="item item-text-wrap black row " ng-click = "openBrowser('{{news.link}}')">
+    <!-- <a class="item item-avatar" href="#"> -->
+    <div class="row  ">
+    <div class="col-20">
+      <img ng-src="{{favs.image}} " class="newsimage ">
+      </div>
 
-	<div class="col col-20 "> 
-    <img class="newsimage " ng-src="{{news.image}}"  > 
-     </div>
+      <div class="item-text-wrap col col-70">
+       {{ favs.title }} 
+      </div> 
+        <ion-option-button class="  button-positive">
+          <i class="ion-ios-upload larger"></i>
+        </ion-option-button>
+        <ion-option-button class="  button-assertive" ng-click = "favDelete($index, favs)">
+          <i class="ion-trash-a larger"> </i>
+        </ion-option-button>
+    </div>
+   
+    </ion-item>
 
-     <div class="col col-80 ">
-    {{news.title}}
-   </div>
-     </div>
-     
-  <div class="item item-divider item-dark">
-    <p> via {{news.source}}
+</ion-list>
 
-<span  "{{news.time}}"></span>
-     </p>
-     
-  </div>
   
-  
-</div>
-
-
 	</ion-content>
 </ion-view>

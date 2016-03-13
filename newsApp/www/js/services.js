@@ -1,4 +1,24 @@
-angular.module('starter.services', ['angularMoment'])
+angular.module('starter.services', ['angularMoment', 'angular-jwt', 'angularDjangoRegistrationAuthApp'])
+
+// .factory('httpRequestInterceptor', function ($localStorage) {
+//   return {
+//     request: function (config) {
+
+//       // use this to destroying other existing headers
+//       // config.headers = {'Authentication':'authentication'}
+
+//       // use this to prevent destroying other existing headers
+//       // var token = $localstorage.get('token')
+//       config.headers['Authorization'] = 'Token ' + $localStorage.token;
+
+//       return config;
+//     }
+//   };
+// })
+
+// .config(function ($httpProvider) {
+//   $httpProvider.interceptors.push('httpRequestInterceptor');
+// })
 
 .factory ('newsSrvc', function ($http, BASE_URL){
 
@@ -46,6 +66,9 @@ angular.module('starter.services', ['angularMoment'])
        console.log('added:', news.exclude)
        $http.post('http://localhost:8000/api/feeds/exclude/', {source: some}).then (function(response){console.log(response.data)}, function errorCallback(response){console.log ('Error already added')} )
       } 
+
+
+
       
 
       if (checkvalue === 'remove'){
@@ -66,37 +89,100 @@ angular.module('starter.services', ['angularMoment'])
   return news
 })
 
-.factory('FavSrvc', function($http){
+.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage){
+
 
   var favs = {
+
+
+    // username: false,
+    token: [],
     favorites: [],
     count: 0,
 
-    getFavs: function (){
-      return $http.get('http://localhost:8000/api/feeds/favorite/').then(function(response){
-        console.log('gotten Favorites')
-        favs.favorites = favs.favorites.concat(response.data)
+    // setsession: function(token){
+     
+
+    //   $localstorage.set('user', token: favs.token)
+    // },
+
+
+    auth: function(user){
+      djangoAuth.login(user.username, user.password).then(function(response){
+        console.log($localStorage.token)
+        $location.path('/tab/chats')
+
+      }, function(data){
+        console.log('Error')
+      })
+
+    },
+
+    logout: function(){
+      djangoAuth.logout().then(function(res){
+        $location.path('/login')
       })
     },
 
-    deleteFavs: function(favorite){
-      return http.delete('http://localhost:8000/api/feeds/updafavorite/', favorite.id).then(function (response){
-        console.log('deleted', favorie)
+    signup: function(user){
+        return $http.post('http://localhost:8000/api/feeds/users/', {username: user.username, password:user.password} ).then(function(response){
+          console.log(response.data)
+        })
+
+
+    },
+
+    // verify: function(user){
+    //   return $http.post('http://localhost:8000/api-token-verify', $localstorage.get('token')).then(function(response){
+    //     console.log(response)
+    //   }, function(response){
+    //     console.log('error', response)
+    //   })
+    // },
+    populateFavs:function(){
+      return $http.get('http://localhost:8000/api/feeds/favorite/').then(function(response){
+        favs.favorites = response.data
+      $localStorage.favs = favs.favorites;
+      console.log($localStorage.favs)
+      
+      })
+
+    },
+
+    getFavs: function (){
+
+      return $localStorage.favs
+      
+      
+    },
+
+    deleteFavs: function( index, favorite){
+
+      var jump = indexOf(favorite.title)
+      if (title > -1)
+
+      return $http.delete('http://localhost:8000/api/feeds/updatefavorite/' + favorite.id).then(function (response){
+        favs.favorites.splice(index, 1)
+        console.log('deleted', favorite)
+        // favs.getFavs()
       }, function(response){console.log ('Couldnt delete', response.data)} )
     },
 
     addFavs: function(news){
-      return $http.post('http://localhost:8000/api/feeds/favorite/', news).then(function(response){
-        favs.favorites = favs.favorites.concat(news);
-        favs.count ++;
-        favs.getFavs()
-      }, function(response){
-        console.log("Error")
-      })
+        
+      return $http.post('http://localhost:8000/api/feeds/favorite/', 
+        { pk: news.id, title:news.title, link: news.link, time: news.time, image:news.image, source:news.source}).then(function(){
+        $localStorage.favs.unshift(news)
+        console.log($localStorage.favs)
+        // favs.getFavs()
 
-      
-    
-      console.log(favs.favorites, favs.count)
+        
+        favs.count ++;
+  
+      }, function(response){
+        console.log("Error", $localStorage.token)
+
+      })
  },
     favcount: function(){
       return favs.count;

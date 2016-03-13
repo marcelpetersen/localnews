@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic','angularMoment'])
+angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRegistrationAuthApp'])
 
     .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc){
     $ionicPlatform.ready(function(){
@@ -10,7 +10,7 @@ angular.module('starter.controllers', ['ionic','angularMoment'])
       };
 
       $scope.openBrowser = function(link){
-        $cordovaInAppBrowser.open(link, '_self', options)
+        $cordovaInAppBrowser.open(link, '_blank', options)
         .then(function(event){
           console.log("Browser opened")
 
@@ -49,6 +49,10 @@ angular.module('starter.controllers', ['ionic','angularMoment'])
       $scope.addFavorites = function(news){
         console.log (news)
         FavSrvc.addFavs(news)
+        // .then (function(){
+        //   FavSrvc.getFavs()
+        //   $scope.favorites = FavSrvc.favorites
+        // })
         
       }  
 
@@ -57,13 +61,14 @@ angular.module('starter.controllers', ['ionic','angularMoment'])
 })
 
 
-    .controller('SourceCtrl', function($scope, newsSrvc){
+  .controller('SourceCtrl', function($scope, FavSrvc, newsSrvc){
+        
         newsSrvc.getSources().then(function(){
           $scope.sources = newsSrvc.sources
         });
 
         
-        $scope.checkvalue = 'add';
+        // $scope.checkvalue = 'add';
 
         $scope.look = function(checkvalue, some){
           newsSrvc.filter(checkvalue, some)
@@ -73,28 +78,70 @@ angular.module('starter.controllers', ['ionic','angularMoment'])
 
  })
 
-    .controller('FavoritesCtrl', function($scope, FavSrvc){
+ .controller('FavoritesCtrl', function($scope, FavSrvc, $localStorage){
 
-      
+        
+      FavSrvc.populateFavs()
+       $scope.favorites = $localStorage.favs
+
+       $scope.favDelete = function($index, favorite){
+          FavSrvc.deleteFavs($index, favorite).then(function(){
+           // $scope.favorites = FavSrvc.favorites
+          
+          console.log(favorite); })
+      }
+
 
       })
 
 
-     .controller('TabCtrl', function($scope, FavSrvc){
-        FavSrvc.getFavs().then(function(){
-          $scope.favorites = FavSrvc.favorites
-        })
+.controller('TabCtrl', function($scope, FavSrvc){
+       
         
         $scope.favcount = FavSrvc.favcount
 
+
+
         $scope.onTabSelected = function(){
+          
+          // FavSrvc.getFavs().then(function(){
+          //   $scope.favorites = FavSrvc.favorites
+          // })
         FavSrvc.count = 0;
         console.log("Entered")
-        
       } 
       
 
       })
+
+  .controller('LoginCtrl', function($scope, FavSrvc){
+    
+    $scope.submit = function(user){
+      FavSrvc.auth(user)
+    }
+
+    $scope.signup = function(user){
+      FavSrvc.signup(user)
+    }
+
+      })
+
+    .controller('SettingsCtrl', function($scope, FavSrvc){
+
+    $scope.logout = function(){
+      FavSrvc.logout()
+
+    }
+
+      })
+
+
+
+
+
+
+      
+
 
 
 
