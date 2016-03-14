@@ -29,7 +29,8 @@ class Feeds(models.Model):
 
 class Favorites(models.Model):
 	user = models.ForeignKey(User, related_name = 'favorites')
-	title = models.CharField(max_length = 255, unique = True)
+	fav_id = models.IntegerField()
+	title = models.CharField(max_length = 255)
 	link = models.URLField(max_length = 255)
 	time = models.DateTimeField()
 	image = models.URLField(max_length = 255, blank = True)

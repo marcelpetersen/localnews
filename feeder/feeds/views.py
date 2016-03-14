@@ -12,18 +12,19 @@ class FeedViews(generics.ListCreateAPIView):
 	# model = Feeds
 	
 	serializer_class = FeedSerializer
-	exclude_list = Exclude.objects.values('source')
+	
 
 
 	def get_queryset(self):
-		# user = self.request.user
-		
-		return Feeds.objects.exclude(source__in=self.exclude_list)
+		if self.request.user.is_authenticated():
+			user = self.request.user
+			exclude_list = Exclude.objects.filter(user=user).values('source')
+		else:
+			exclude_list = []
+
+		return Feeds.objects.exclude(source__in=exclude_list)
 
 
-	def put(self, something):
-		self.exclude_list.append(something)
-		return 
 
 class FeedSource (generics.ListAPIView):
 	serializer_class = SourceSerializer
@@ -32,13 +33,17 @@ class FeedSource (generics.ListAPIView):
 
 class FavoriteViews(generics.ListCreateAPIView):
 	serializer_class = FavoriteSerializer
-	queryset = Favorites.objects.all()
+
+	def get_queryset(self):
+
+		user = self.request.user
+		return Favorites.objects.filter(user=user)
 
 	def perform_create(self, serializer):
 		serializer.save(user = self.request.user)
 
 class FavoriteUpdate(generics.RetrieveUpdateDestroyAPIView):
-	# lookup_field = 'pk'
+	# lookup_field = 'fav_id'
 	serializer_class = FavoriteSerializer
 	queryset = Favorites.objects.all()
 

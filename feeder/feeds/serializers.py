@@ -18,8 +18,8 @@ class FeedSerializer(serializers.ModelSerializer):
 
 	class Meta: 
 		model = Feeds
-		fields = '__all__'
-		read_only_fields = ('__all__')
+		fields = ('id', 'title', 'link', 'time', 'image', 'source')
+		# read_only_fields = ('__all__')
 
 
 class SourceSerializer(serializers.ModelSerializer):
@@ -33,7 +33,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Favorites
-		fields = ('user', 'title', 'link', 'time', 'image', 'source')
+		fields = ('id','user', 'title', 'link', 'time', 'image', 'source', 'fav_id')
 
 
 class ExcludeSerializer(serializers.ModelSerializer):
