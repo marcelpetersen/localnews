@@ -10,8 +10,16 @@ class FeedsAdmin (admin.ModelAdmin):
 	class Meta:
 		model = Feeds
 
+class StateAdmin(admin.ModelAdmin):
+	list_display = ('__unicode__', 'user')
+
+	class Meta:
+		model = States
+
+
 admin.site.register (Feeds, FeedsAdmin)
 # admin.site.register(User)
 admin.site.register(Exclude)
 admin.site.register(Favorites)
+admin.site.register(States, StateAdmin)
 # TokenAdmin.raw_id_fields = ('user',)

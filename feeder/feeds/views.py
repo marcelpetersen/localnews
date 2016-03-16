@@ -2,8 +2,8 @@ from django.shortcuts import render
 from django.http import request, HttpResponse
 from django.contrib.auth.models import User
 from rest_framework import viewsets, generics, permissions, status
-from serializers import FeedSerializer, SourceSerializer, FavoriteSerializer, ExcludeSerializer, UserSerializer
-from models import Feeds, Favorites, Exclude
+from serializers import FeedSerializer, SourceSerializer, FavoriteSerializer, ExcludeSerializer, UserSerializer, StateSerializer
+from models import Feeds, Favorites, Exclude, States
 from rest_framework.response import Response
 
 # Create your views here.
@@ -19,10 +19,12 @@ class FeedViews(generics.ListCreateAPIView):
 		if self.request.user.is_authenticated():
 			user = self.request.user
 			exclude_list = Exclude.objects.filter(user=user).values('source')
+			location_list = States.objects.filter(user=user).values('state')
 		else:
 			exclude_list = []
+			location_list = []
 
-		return Feeds.objects.exclude(source__in=exclude_list)
+		return Feeds.objects.filter(location__in=location_list).exclude(source__in=exclude_list)
 
 
 
@@ -63,6 +65,13 @@ class ExcludeDestroyViewSet(generics.RetrieveUpdateDestroyAPIView):
 	lookup_field = 'source'
 	serializer_class = ExcludeSerializer
 	queryset = Exclude.objects.all()
+
+class StateView(generics.ListCreateAPIView):
+	serializer_class = StateSerializer
+	queryset = States.objects.all()
+
+	def perform_create(self, serializer):
+		serializer.save(user = self.request.user)
 
 class UserViews(generics.ListCreateAPIView):
 	queryset = User.objects.all()

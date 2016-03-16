@@ -20,6 +20,7 @@ class Feeds(models.Model):
 	time = models.DateTimeField()
 	image = models.URLField(max_length = 255)
 	source = models.CharField (max_length = 255)
+	location = models.CharField(max_length=2)
 
 	def __unicode__(self):
 		return self.title
@@ -49,4 +50,17 @@ class Exclude(models.Model):
 
 	def __unicode__(self):
 		return self.source
+
+class States (models.Model):
+	user = models.ForeignKey(User, related_name = 'states')
+	state = models.CharField(max_length=2)
+
+	def __unicode__(self):
+		return self.state
+
+
+
+
+
+
 
