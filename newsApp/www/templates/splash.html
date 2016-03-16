@@ -1,0 +1,20 @@
+<ion-view view-title= "splash" hide-nav-bar= "true">
+<ion-content class = "splashpage">
+	<div class="splash list">
+  <label class="item item-input item-floating-label ">
+    <span  class="input-label"> <i class="ion-location"></i> News around:</span>
+
+     <input type="text" g-places-autocomplete options = "autocompleteOptions" ng-model="place" placeholder="Enter City, e.g Tulsa, OK, USA" style="color: white;" />
+   
+  </label>
+
+  	<button class="button button-block button-energized" style="margin-top: 30px;" ng-click = "getState(place)">
+  		Get News
+  	</button>
+</div>
+
+ 
+    </ion-content>
+</ion-view>
+
+ 

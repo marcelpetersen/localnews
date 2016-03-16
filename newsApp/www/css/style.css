@@ -1,43 +1,49 @@
 /* Empty. Add your own CSS if you like */
 
-.card.newsItem {
-	/*border-radius: 40px;*/
-	/*background: grey;*/
-	color: white;
-	box-shadow: 5px 10px 5px grey;
+.card{
+	margin-right: 0px;
+	margin-left:0px;
 	
-	border-radius: 10px;
-	/*height: 100px;*/
+
+}
+
+.card.newsItem {
+
+	color: white;
+	box-shadow: 1px 5px 2px black;
+	border-right: 0px solid white;
+
+	
+	/*border-radius: 10px;*/
 }
 
 .item.black {
 	
-background: #360033; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #360033 , #0b8793); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #360033 , #0b8793); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-              
+
+
+background: #5f2c82; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5f2c82 , #49a09d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                     
 	color: white;
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 500;
-	font-family: Verdana, Geneva, sans-serif;
-	height: 75px;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	height: 79px;
 
 
 }
 
-.blacks{
-	background: #360033; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #360033 , #0b8793); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #360033 , #0b8793); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-              
-	color: white;
-	font-size: 12px;
-	font-weight: 500;
-	font-family: Verdana, Geneva, sans-serif;
-	height: 100%;co
+.splashpage{
 
 
+background: #5C258D; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5C258D , #4389A2); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5C258D , #4389A2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
 }
+
+
 
 .item.item-divider {
 	height: 20px;
@@ -53,10 +59,10 @@ background: linear-gradient(to left, #360033 , #0b8793); /* W3C, IE 10+/ Edge, F
 }
 
 .newsimage{
-	border: 3px solid grey;
-	border-radius: 30px;
-	width: 55px;
-	height:55px;
+	border: 2px solid #e2d2f6;
+	border-radius: 8px;
+	width: 120px;
+	height:81px;
 }
 
 
@@ -66,4 +72,109 @@ background: linear-gradient(to left, #360033 , #0b8793); /* W3C, IE 10+/ Edge, F
 	text-align: right;
 
 }
+
+.item.item-divider.settings {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	/*font-weight: bold;*/
+	border-top: none;
+	text-align: center;
+	color: white;
+	background: #5C258D; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5C258D , #4389A2); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5C258D , #4389A2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+}
+
+.item{
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+}
+.splash.list{
+	padding-top: 50%;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+.item.item-input.item-floating-label{
+	/*padding: 40px;*/
+	border-top: none;
+	border-right: none;
+	border-left: none;
+
+}
+
+.splashinput{
+	color: white;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#form {
+
+    margin-left: 50px;
+    width: 500px
+}
+
+.indent {
+
+    margin-left: 50px;
+}
+
+.move-down {
+    margin-top: 100px;
+}
+
+.white{
+	color: white;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	border-top: none;
+	border-color: #e2d2f6;
+	/*border-bottom: 1px solid;*/
+
+}
+
+.list.padding{
+
+	border-radius: 10px !important;
+}
+
+.favorite{
+
+
+background: #5f2c82; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5f2c82 , #49a09d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+/*border-top: none;*/
+	border-color: #e2d2f6; 
+	border-bottom: 1px solid;
+
+	/*border-bottom : 1px;*/
+
+}
+
+a.item.item-icon-left{
+	background: #5f2c82; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5f2c82 , #49a09d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+border-top: none;
+	border-color: #e2d2f6; 
+
+}
+
+a.item.item-icon-right{
+	background: #5f2c82; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5f2c82 , #49a09d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+border-top: none;
+	border-color: #e2d2f6; 
+
+}
+
+
+
+
+
 

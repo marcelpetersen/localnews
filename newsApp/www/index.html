@@ -7,6 +7,7 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="/lib/angular-google-places-autocomplete/src/autocomplete.css">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -22,13 +23,21 @@
     <!-- Moments  -->
     <script src="lib/moment/min/moment.min.js"></script>
     
+    <!-- Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
+    
+
+    <!-- AIzaSyCL6lucRNNZEEdHYMIQJwka9XMuP1cqxgo -->
+   
+ 
     <script src="lib/angular-moment/angular-moment.min.js"></script>
     <script src="lib/angular-cookies/angular-cookies.min.js"></script>
+    <script src="lib/angular-resource/angular-resource.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
+    <script src="lib/ngstorage/ngStorage.min.js"></script>
 
-    <script src="lib/angular-jwt/dist/angular-jwt.min.js"></script>
+    <script src="lib/angular-google-places-autocomplete/src/autocomplete.js"></script>
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
@@ -37,7 +46,7 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/djangoAuth.js"></script>
+    
 
     
 
@@ -46,7 +55,7 @@
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-balanced">
+    <ion-nav-bar class="splashpage">
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>

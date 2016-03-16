@@ -1,26 +1,24 @@
-angular.module('starter.services', ['angularMoment', 'angular-jwt', 'angularDjangoRegistrationAuthApp'])
+angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationAuthApp'])
 
-// .factory('httpRequestInterceptor', function ($localStorage) {
-//   return {
-//     request: function (config) {
+.factory('httpRequestInterceptor', function ($localStorage, $cookies) {
+  return {
+    request: function (config) {
+      
+      if ($localStorage.token)
+      {config.headers['Authorization'] = 'Token ' + $localStorage.token;
+}
+      return config;
+    }
+  };
+})
 
-//       // use this to destroying other existing headers
-//       // config.headers = {'Authentication':'authentication'}
 
-//       // use this to prevent destroying other existing headers
-//       // var token = $localstorage.get('token')
-//       config.headers['Authorization'] = 'Token ' + $localStorage.token;
+.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('httpRequestInterceptor');
+})
 
-//       return config;
-//     }
-//   };
-// })
 
-// .config(function ($httpProvider) {
-//   $httpProvider.interceptors.push('httpRequestInterceptor');
-// })
-
-.factory ('newsSrvc', function ($http, BASE_URL){
+.factory ('newsSrvc', function ($http, BASE_URL, $q, $localStorage){
 
   
 
@@ -30,6 +28,18 @@ angular.module('starter.services', ['angularMoment', 'angular-jwt', 'angularDjan
     next : [],
     sources:[],
     exclude: [],
+
+    checkSession: function(){
+      var defer = $q.defer();
+
+      if ($localStorage.token){
+        defer.resolve(true);
+      }
+      else {defer.resolve(false);
+      }
+
+        return defer.promise;
+      },
 
 
 
@@ -67,10 +77,6 @@ angular.module('starter.services', ['angularMoment', 'angular-jwt', 'angularDjan
        $http.post('http://localhost:8000/api/feeds/exclude/', {source: some}).then (function(response){console.log(response.data)}, function errorCallback(response){console.log ('Error already added')} )
       } 
 
-
-
-      
-
       if (checkvalue === 'remove'){
         index = news.exclude.indexOf(some)
         if (index > -1){
@@ -89,23 +95,14 @@ angular.module('starter.services', ['angularMoment', 'angular-jwt', 'angularDjan
   return news
 })
 
-.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage){
+.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage, $state){
 
 
   var favs = {
 
-
-    // username: false,
     token: [],
     favorites: [],
     count: 0,
-
-    // setsession: function(token){
-     
-
-    //   $localstorage.set('user', token: favs.token)
-    // },
-
 
     auth: function(user){
       djangoAuth.login(user.username, user.password).then(function(response){
@@ -125,73 +122,62 @@ angular.module('starter.services', ['angularMoment', 'angular-jwt', 'angularDjan
     },
 
     signup: function(user){
-        return $http.post('http://localhost:8000/api/feeds/users/', {username: user.username, password:user.password} ).then(function(response){
-          console.log(response.data)
+        djangoAuth.register(user.username,(password1 = 123456), (password2 = 123456) ).then(function (response){
+          console.log(response.key)
+          $localStorage.token = response.key
+          $state.go('tab.dash')
+
+
         })
 
 
     },
 
-    // verify: function(user){
-    //   return $http.post('http://localhost:8000/api-token-verify', $localstorage.get('token')).then(function(response){
-    //     console.log(response)
-    //   }, function(response){
-    //     console.log('error', response)
-    //   })
-    // },
+  
     populateFavs:function(){
-      return $http.get('http://localhost:8000/api/feeds/favorite/').then(function(response){
-        favs.favorites = response.data
-      $localStorage.favs = favs.favorites;
-      console.log($localStorage.favs)
+      return $http.get('http://localhost:8000/api/feeds/favorite/').then(function(response){  
+      console.log('Popuating favs', response.data)
+      $localStorage.favs = response.data
+      console.log('favs', $localStorage.favs)
       
       })
 
-    },
-
-    getFavs: function (){
-
-      return $localStorage.favs
-      
-      
     },
 
     deleteFavs: function( index, favorite){
 
-      var jump = indexOf(favorite.title)
-      if (title > -1)
-
       return $http.delete('http://localhost:8000/api/feeds/updatefavorite/' + favorite.id).then(function (response){
-        favs.favorites.splice(index, 1)
+        $localStorage.favs.splice(index, 1)
         console.log('deleted', favorite)
-        // favs.getFavs()
       }, function(response){console.log ('Couldnt delete', response.data)} )
     },
 
     addFavs: function(news){
-        
-      return $http.post('http://localhost:8000/api/feeds/favorite/', 
-        { pk: news.id, title:news.title, link: news.link, time: news.time, image:news.image, source:news.source}).then(function(){
-        $localStorage.favs.unshift(news)
-        console.log($localStorage.favs)
-        // favs.getFavs()
-
-        
-        favs.count ++;
+      
+        return $http.post('http://localhost:8000/api/feeds/favorite/', {fav_id: news.id, title: news.title, link:news.link, time:news.time, image:news.image, source:news.source} ).then(function(){
+        favs.favorites.unshift(news)
+        // favs.populateFavs()
+        console.log(favs.favorites)
+     favs.count ++;
   
       }, function(response){
         console.log("Error", $localStorage.token)
-
-      })
+      })      
  },
+    
     favcount: function(){
       return favs.count;
+    },
+
+    states: function(main){
+      return $http.post('http://localhost:8000/api/feeds/state/', {state: main})
     }
 
 
   }
 
   return favs
+
 })
 
 

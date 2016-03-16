@@ -1,15 +1,18 @@
-<ion-view view-title = "Favorite Stories">
-	<ion-content>
-	<ion-list class="" >
-    <ion-item ng-repeat ="favs in favorites" class = "blacks">
+<ion-view cache-view="false" >
+    <ion-nav-title>
+      <span class="white"> Favorite Stories</span>
+        </ion-nav-title>
+	<ion-content class= "splashpage">
+	<ion-list>
+    <ion-item ng-repeat ="favs in favorites" class = "white ">
   
     <!-- <a class="item item-avatar" href="#"> -->
-    <div class="row  ">
-    <div class="col-20">
+    <div class="row favorite">
+    <div class=" col-40">
       <img ng-src="{{favs.image}} " class="newsimage ">
       </div>
 
-      <div class="item-text-wrap col col-70">
+      <div class="item-text-wrap col col-60">
        {{ favs.title }} 
       </div> 
         <ion-option-button class="  button-positive">

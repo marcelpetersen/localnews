@@ -1,7 +1,7 @@
 
 
 angular.module('angularDjangoRegistrationAuthApp', [])
-  .service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope, $sessionStorage) {
+  .service('djangoAuth', function djangoAuth($q, $http, $cookies, $rootScope, $localStorage) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var service = {
         /* START CUSTOMIZATION HERE */
@@ -100,6 +100,7 @@ angular.module('angularDjangoRegistrationAuthApp', [])
         },
         'logout': function(){
             var djangoAuth = this;
+            $localStorage.$reset()
             return this.request({
                 'method': "POST",
                 'url': "/logout/"
@@ -107,6 +108,7 @@ angular.module('angularDjangoRegistrationAuthApp', [])
                 delete $http.defaults.headers.common.Authorization;
                 delete $cookies.token;
                 djangoAuth.authenticated = false;
+
                 $rootScope.$broadcast("djangoAuth.logged_out");
             });
         },
@@ -202,6 +204,7 @@ angular.module('angularDjangoRegistrationAuthApp', [])
         'initialize': function(url, sessions){
             this.API_URL = url;
             this.use_session = sessions;
+            console.log(url, sessions, this.authenticationStatus())
             return this.authenticationStatus();
         }
 

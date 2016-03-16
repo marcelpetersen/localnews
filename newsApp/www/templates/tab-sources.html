@@ -1,8 +1,11 @@
-<ion-view view-title="News Sources">
-  <ion-content>
-    <ul class="list">
+<ion-view>
+  <ion-nav-title>
+    <span class="white">News Sources</span>
+  </ion-nav-title>
+  <ion-content class = "splashpage">
+    <div class="list ">
 
-  <li class="item item-toggle" ng-repeat ="source in sources" >
+  <li class="item item-toggle splashpage white" ng-repeat ="source in sources" >
      {{source.source}}
      <label class="toggle toggle-assertive">
        <input type="checkbox"  ng-model = "checkvalue" ng-true-value = "'add'" ng-false-value = "'remove'" ng-change = "look('{{checkvalue}}', '{{source.source}} ')" >
@@ -15,6 +18,6 @@
 
   
 
-</ul>
+</div>
   </ion-content>
 </ion-view>

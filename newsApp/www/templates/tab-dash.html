@@ -1,5 +1,9 @@
-<ion-view view-title="Headline">
-  <ion-content class = "">
+<ion-view>
+  <ion-nav-title>
+     <span class="white"> Headlines </span> 
+  </ion-nav-title>
+
+  <ion-content class = "splashpage">
   
   <ion-refresher pulling-text = 'Pull to refresh...'
   on-refresh = "doRefresh()"> </ion-refresher>
@@ -11,11 +15,11 @@
   
   
       <div class=" row item item-text-wrap black " ng-click = "openBrowser('{{news.link}}')">
-          <div class="col col-20 "> 
+          <div class="col-40 "> 
               <img class="newsimage " ng-src="{{news.image}}"  > 
            </div>
 
-           <div class="col col-70 ">
+           <div class="col col-60 ">
                 {{news.title}}
            </div>
      </div>
@@ -23,10 +27,13 @@
      
   <div class=" row item item-divider item-dark ">
     
-     <p class="col "> via {{news.source}}</p>
+     <p class="col source"> via {{news.source}}</p>
       <div class="col  larger" >
           
-           <p class="larger">   <i class="ion-ios-heart larger "  ng-click="addFavorites({{news}}) "></i>  &nbsp; &nbsp; &nbsp; 
+           <p class="larger">  
+            <i class="ion-ios-heart larger "  ng-click="addFavorites({{news}}) "></i> 
+             &nbsp; &nbsp; &nbsp; 
+
 
               <i class="ion-share larger"> </i>   
               </p>  
@@ -38,7 +45,7 @@
 
 
 </ion-list>
-<button class="button button-block button-royal" ng-click = "getMore()"> More Headlines</button>
+<button class="button button-block button-energized" ng-click = "getMore()"> More Headlines</button>
 <!-- <button class="button button-block button-royal" ng-click = "openBrowser('http://google.com')"> More</button> -->
     
   </ion-content>

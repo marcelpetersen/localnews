@@ -1,6 +1,6 @@
-angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRegistrationAuthApp'])
+angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRegistrationAuthApp', 'google.places'])
 
-    .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc){
+    .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc, $localStorage){
     $ionicPlatform.ready(function(){
       var options ={
         location:'yes',
@@ -48,12 +48,7 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
 
       $scope.addFavorites = function(news){
         console.log (news)
-        FavSrvc.addFavs(news)
-        // .then (function(){
-        //   FavSrvc.getFavs()
-        //   $scope.favorites = FavSrvc.favorites
-        // })
-        
+        FavSrvc.addFavs(news) 
       }  
 
 
@@ -67,24 +62,19 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
           $scope.sources = newsSrvc.sources
         });
 
-        
-        // $scope.checkvalue = 'add';
-
         $scope.look = function(checkvalue, some){
           newsSrvc.filter(checkvalue, some)
         }
-        
-
-
  })
 
- .controller('FavoritesCtrl', function($scope, FavSrvc, $localStorage){
+ .controller('FavoritesCtrl', function($scope,FavSrvc, $localStorage){
 
-        
-      FavSrvc.populateFavs()
-       $scope.favorites = $localStorage.favs
+       
+      FavSrvc.populateFavs().then(function(){
+        $scope.favorites = $localStorage.favs
+      })
 
-       $scope.favDelete = function($index, favorite){
+      $scope.favDelete = function($index, favorite){
           FavSrvc.deleteFavs($index, favorite).then(function(){
            // $scope.favorites = FavSrvc.favorites
           
@@ -95,20 +85,15 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
       })
 
 
-.controller('TabCtrl', function($scope, FavSrvc){
+.controller('TabCtrl', function($scope, $state, $window, FavSrvc){
        
         
-        $scope.favcount = FavSrvc.favcount
+      $scope.favcount = FavSrvc.favcount
 
-
-
-        $scope.onTabSelected = function(){
-          
-          // FavSrvc.getFavs().then(function(){
-          //   $scope.favorites = FavSrvc.favorites
-          // })
-        FavSrvc.count = 0;
-        console.log("Entered")
+      $scope.onTabSelected = function(){
+        
+      FavSrvc.count = 0;
+      console.log("Entered")
       } 
       
 
@@ -134,6 +119,32 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
     }
 
       })
+
+    .controller('SplashCtrl', function($scope, FavSrvc){
+       $scope.result2 = '';
+    $scope.options2 = {
+      country: 'ca',
+      types: '(cities)'
+    };    $scope.details2 = '';
+    
+
+    $scope.getState = function(state){
+
+      $scope.place = null;
+      $scope.autocompleteOptions ={
+        componentRestrictions:{country: 'us'},
+        types: ['cities']
+      }
+    }
+
+    $scope.getState = function(state){
+      var value = state.formatted_address.split(', ');
+      var main = value[1]
+      console.log(main)
+      FavSrvc.states(main)
+    }
+
+    })
 
 
 
