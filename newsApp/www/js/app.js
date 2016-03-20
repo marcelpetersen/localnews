@@ -50,6 +50,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   })
 
   // Each tab has its own nav history stack:
+  .state('main', {
+    url: '/main',
+    templateUrl: 'templates/main.html',
+    onEnter: function($state, newsSrvc){
+      newsSrvc.checkSession().then(function (session){
+        if (session){
+          $state.go('tab.dash')}
+          else{
+            $state.go('splash')
+          }
+        
+      })
+    }
+  })
+
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
@@ -96,15 +111,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         }
       }
     })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          // controller: 'ChatDetailCtrl'
-        }
-      }
-    })
 
   .state('tab.account', {
     url: '/account',
@@ -114,10 +120,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         controller: 'SettingsCtrl'
       }
     }
-  });
+  })
+
+  .state('tab.location', {
+    url: '/account/location',
+    views:{
+      'tab-account':{
+          templateUrl: 'templates/tab-location.html',
+          controller: 'LocationCtrl'
+        }
+      }
+  })
+
+  ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/splash');
+  $urlRouterProvider.otherwise('/main');
 
 
 })

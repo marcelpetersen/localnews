@@ -47,13 +47,14 @@ with psycopg2.connect("dbname ='feedparser' user ='admin' password= 'admin' host
 					imageUrl = ''
 
 			source = d.feed.title
+			location = "OK"
 
 			try:
-				cur.execute("""INSERT INTO feeds_feeds(title, link, time, image, source) VALUES (%s, %s, %s, %s, %s)""", (title, link, time, imageUrl, source,))
+				cur.execute("""INSERT INTO feeds_feeds(title, link, time, image, source, location) VALUES (%s, %s, %s, %s, %s, %s)""", (title, link, time, imageUrl, source, location))
 				dbconnect.commit()
 			except psycopg2.IntegrityError:
 				dbconnect.rollback()
-				print 'Already stored:'
+				
 
 				
 

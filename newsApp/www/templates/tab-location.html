@@ -1,0 +1,51 @@
+<ion-view cache-view= "false">
+	<ion-nav-title class = "item-icon-right">
+		<span class="title white"> Locations</span>
+	 <i ng-click = "openPopover($event)" class="icon ion-ios-information larger white"></i> 
+	</ion-nav-title>
+
+
+<ion-content class = "splashpage">
+
+<div class="addLocation">
+	
+	<label class="item item-input item-floating-label ">
+		<span  class="input-label white"> <i class="ion-location"></i> Add City:</span>
+
+		 <input type="text" g-places-autocomplete options = "autocompleteOptions" ng-model="place" placeholder="Enter City, e.g Tulsa, OK, USA" style="color: white;" />
+
+  	</label>
+</div>
+	<center>
+  	<button ng-click= "getState(place)"  class="button button-energized locationbutton"> <i class="ion-plus-circled larger"></i> </button>
+  	</center>
+
+
+<ion-list >
+<center>
+	<h4 class="white"> Added Locations </h4>
+</center>
+
+ <ion-item ng-repeat ="city in locations" class = "white ">
+  
+    <div class="row favorite padding">
+    <div class=""> 
+    {{city.city}}
+    </div>
+        
+        <ion-option-button class="  button-assertive" ng-click = "delete($index, city)">
+          <i class="ion-trash-a larger"> </i>
+        </ion-option-button>
+    </div>
+   
+    </ion-item>
+
+</ion-list>
+
+
+
+
+
+</ion-content>
+
+</ion-view>

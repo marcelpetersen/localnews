@@ -46,7 +46,7 @@ class Favorites(models.Model):
 
 class Exclude(models.Model):
 	user = models.ForeignKey(User, related_name = 'exclude')
-	source = models.CharField(max_length = 255, unique = True)
+	source = models.CharField(max_length = 255)
 
 	def __unicode__(self):
 		return self.source
@@ -54,9 +54,25 @@ class Exclude(models.Model):
 class States (models.Model):
 	user = models.ForeignKey(User, related_name = 'states')
 	state = models.CharField(max_length=2)
+	city = models.CharField(max_length= 200)
 
 	def __unicode__(self):
 		return self.state
+	class Meta:
+		ordering = ["-id"]
+
+class Suggestions(models.Model):
+	user = models.ForeignKey(User, related_name = 'suggester')
+	name= models.CharField(max_length=255, blank = True)
+	link = models.CharField(max_length=255, blank= True)
+	location = models.CharField(max_length=255, blank= True)
+
+	def __unicode__(self):
+		return self.name
+
+	class Meta:
+		ordering = ["-id"]
+
 
 
 

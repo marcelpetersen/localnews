@@ -173,6 +173,27 @@ border-top: none;
 
 }
 
+.addLocation{
+	padding-left: 10%;
+	padding-right: 10%;
+	margin-bottom: 10px;
+
+}
+button.locationbutton{
+	height: 5px;
+	margin-bottom: 50px;
+}
+
+.pad{
+	padding-left: 10%;
+	padding-right: 10%
+}
+
+.custom.popup-container .popup{
+	border-radius: 20px;
+	width: 70%;
+}
+
 
 
 

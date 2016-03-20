@@ -24,16 +24,19 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
   var news  = {
 
+
     feeds: [],
     next : [],
     sources:[],
     exclude: [],
+
 
     checkSession: function(){
       var defer = $q.defer();
 
       if ($localStorage.token){
         defer.resolve(true);
+        
       }
       else {defer.resolve(false);
       }
@@ -67,25 +70,32 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
         console.log(response.data)
         news.sources = response.data;
 
+
+      })
+    },
+
+    getExclude: function(){
+      return $http.get('http://localhost:8000/api/feeds/exclude').then(function(response){
+        console.log(response)
+
       })
     },
     
     filter: function(checkvalue, some){
-      if (checkvalue === 'add'){
-       news.exclude =news.exclude.concat(some)
+      if (checkvalue === 'true'){
+       $localStorage.exclude =$localStorage.exclude.concat(some)
        console.log('added:', news.exclude)
        $http.post('http://localhost:8000/api/feeds/exclude/', {source: some}).then (function(response){console.log(response.data)}, function errorCallback(response){console.log ('Error already added')} )
       } 
 
-      if (checkvalue === 'remove'){
-        index = news.exclude.indexOf(some)
+      if (checkvalue === 'false'){
+        index = $localStorage.exclude.indexOf(some)
         if (index > -1){
-          news.exclude.splice(index, 1)
+          $localStorage.exclude.splice(index, 1)
           $http.delete('http://localhost:8000/api/feeds/destroy/' + some).then (function(response){console.log('Deleted', some)})
         }
-        console.log('removed', some, news.exclude)
+        console.log('removed', some, $localStorage.exclude)
       }
-
     }
 
     }
@@ -117,20 +127,15 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
     logout: function(){
       djangoAuth.logout().then(function(res){
-        $location.path('/login')
+        $location.path('/splash')
       })
     },
 
     signup: function(user){
-        djangoAuth.register(user.username,(password1 = 123456), (password2 = 123456) ).then(function (response){
+        djangoAuth.register(username = user,(password1 = 123456), (password2 = 123456) ).then(function (response){
           console.log(response.key)
           $localStorage.token = response.key
-          $state.go('tab.dash')
-
-
         })
-
-
     },
 
   
@@ -155,9 +160,6 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
     addFavs: function(news){
       
         return $http.post('http://localhost:8000/api/feeds/favorite/', {fav_id: news.id, title: news.title, link:news.link, time:news.time, image:news.image, source:news.source} ).then(function(){
-        favs.favorites.unshift(news)
-        // favs.populateFavs()
-        console.log(favs.favorites)
      favs.count ++;
   
       }, function(response){
@@ -169,18 +171,48 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
       return favs.count;
     },
 
-    states: function(main){
-      return $http.post('http://localhost:8000/api/feeds/state/', {state: main})
+    states: function(main, location){
+      return $http.post('http://localhost:8000/api/feeds/state/', {state: main, city:location})
+    }
+  }
+ return favs
+
+})
+
+.factory('SettingsSrvc', function($localStorage, $http){
+
+  var settings = {
+
+    city: [],
+
+    cities: function(){
+      return $http.get('http://localhost:8000/api/feeds/city/').then(function(response){
+        console.log(response.data)
+        $localStorage.city = response.data
+        console.log($localStorage.city)
+      })
+    },
+
+    addedLocations: function(){
+      return $localStorage.city
+    },
+
+    removeLocation: function(index, state){
+      return $http.delete('http://localhost:8000/api/feeds/stateupdate/' + state.id).then(function(){
+
+      })
+    },
+
+    suggestion: function(name, link, location){
+      return $http.post('http://localhost:8000/api/feeds/suggest/', {name:name, link:link, location:location})
+
     }
 
 
   }
-
-  return favs
+  return settings
 
 })
-
-
 
 
 
