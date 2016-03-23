@@ -52,16 +52,16 @@ background: linear-gradient(to left, #5C258D , #4389A2); /* W3C, IE 10+/ Edge, F
 
 .item-content{
 	padding: 0px !important;
-	background: #360033; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #360033 , #0b8793); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #360033 , #0b8793); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-     
+	background: #5C258D; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5C258D , #4389A2); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5C258D , #4389A2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .newsimage{
 	border: 2px solid #e2d2f6;
 	border-radius: 8px;
-	width: 120px;
+	width: 90%;
 	height:81px;
 }
 
@@ -127,7 +127,7 @@ background: linear-gradient(to left, #5C258D , #4389A2); /* W3C, IE 10+/ Edge, F
 .white{
 	color: white;
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	border-top: none;
+	/*border-top: none;*/
 	border-color: #e2d2f6;
 	/*border-bottom: 1px solid;*/
 
@@ -139,18 +139,19 @@ background: linear-gradient(to left, #5C258D , #4389A2); /* W3C, IE 10+/ Edge, F
 }
 
 .favorite{
-
-
+color: white;
 background: #5f2c82; /* fallback for old browsers */
 background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d); /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to left, #5f2c82 , #49a09d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+border-color: #e2d2f6; 
+}
 
-/*border-top: none;*/
-	border-color: #e2d2f6; 
-	border-bottom: 1px solid;
+.favorite:active{
+	background: #4389A2
+}
 
-	/*border-bottom : 1px;*/
-
+a:active{
+	background: #4389A2;
 }
 
 a.item.item-icon-left{
@@ -194,8 +195,70 @@ button.locationbutton{
 	width: 70%;
 }
 
+.tab-item{
+	color: white;
+	font-weight: bold;
+	opacity: 3 !important;
+
+}
 
 
 
+.tab-item.tab-item-active, .tab-item.active, .tab-item.activated {
+    color: dodgerblue;
+    font-size: bold;
 
+}
 
+i.ion-ios-heart.dash {
+	color: grey;
+}
+
+i.ion-ios-heart.dash:active {
+	color: white;
+}
+
+i.ion-ios-upload.dash{
+	color: grey;
+}
+
+i.ion-ios-upload.dash:active{
+	color: white;
+}
+
+.pulling-text{
+	color: white;
+}
+.scroll-refresher{
+	color: blue;
+}
+
+.bar .button.back-button, .bar button.back-button{
+	color: white;
+}
+
+.ionic-refresher-content.ionic-refresher-with-text{
+	color: white;
+}
+
+a.item:active{
+	background: #4389A2;
+}
+
+a.item.item-icon-left.item-icon-right{
+	border-top: blue;
+}
+a.item-content{
+	padding: 16px !important;
+	padding-left: 54px !important;
+
+background: #5f2c82; /* fallback for old browsers */
+background: -webkit-linear-gradient(to left, #5f2c82 , #49a09d); /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to left, #5f2c82 , #49a09d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+border-color: #e2d2f6; 	
+}
+
+a.item-content:active{
+	background: #4389A2 !important;
+
+}

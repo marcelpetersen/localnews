@@ -1,4 +1,4 @@
-<ion-view >
+<ion-view>
       <ion-nav-title>
       <span class="white">Settings</span>
       </ion-nav-title>
@@ -16,43 +16,43 @@
                 Enable Notifications
               </ion-toggle>
 
-              <a class="item item-icon-left item-icon-right " href="#/tab/account/location"> 
+              <ion-item class="item item-icon-left item-icon-right favorite white" href="#/tab/account/location"> 
                 <i class="icon ion-location"></i>
                 Add Location
                 <i class="icon ion-ios-arrow-right"></i> 
-              </a>
+              </ion-item>
 
-              <a class="item item-icon-left" ng-click = "showPopup()">
+              <ion-item class="item item-icon-left favorite " ng-click = "showPopup()">
                 <i class="icon ion-link"></i>
                 Suggest Source
                 
-              </a>
+              </ion-item>
 
        <div class="item item-divider settings">
         HELP
       </div>
-            <a ng-click= "report()" class="item item-icon-right">
+            <ion-item ng-click= "report()" class="item item-icon-right favorite">
                 Report a bug
                 <i class="icon ion-bug"></i>
-            </a>
+            </ion-item>
 
-            <a class="item item-icon-right">
+            <ion-item class="item item-icon-right favorite">
                 Privacy Policy
                 <i class="icon ion-lock-combination"></i>
-            </a>
+            </ion-item>
 
-            <a class="item item-icon-right" ng-click="rateApp()">
+            <ion-item class="item item-icon-right favorite" ng-click="rateApp()">
                 Rate this app
                 <i class="icon ion-ios-star"></i>
+                </ion-item>
 
-            </a>
-            <a class="item item-icon-right" ng-click= "shareApp()">
+            <ion-item class="item item-icon-right favorite white" ng-click= "shareApp()">
                 Share this app
                 <i class="icon ion-ios-upload"></i>
-            </a>
+            </ion-item>
 
     </div>
-   <button class="button button-block button-positive" onclick="window.plugins.socialsharing.share('Via Just LocalNews', null, null, 'http://www.tulsaworld.com/news/local/irish-american-club-of-tulsa-warms-up-for-st-patrick/article_82408a94-5520-51e1-a46c-4ba598909332.html')"> Share</button>
+   
 
     </ion-list>
     <button class="button button-block button-assertive" ng-click = logout() style="margin-top: 20px;">

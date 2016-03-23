@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 })
 
 
-.constant ('BASE_URL', 'http://localhost:8000/api/feeds/')
+.constant ('BASE_URL', 'https://polar-spire-13485.herokuapp.com/api/feeds/')
 
 
 .config(function($httpProvider, $stateProvider, $urlRouterProvider) {

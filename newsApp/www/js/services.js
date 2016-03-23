@@ -66,17 +66,10 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
           
         },
     getSources: function(){
-      return $http.get('http://localhost:8000/api/feeds/source/').then(function(response){
+      return $http.get(BASE_URL + 'source/').then(function(response){
         console.log(response.data)
         news.sources = response.data;
 
-
-      })
-    },
-
-    getExclude: function(){
-      return $http.get('http://localhost:8000/api/feeds/exclude').then(function(response){
-        console.log(response)
 
       })
     },
@@ -85,14 +78,14 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
       if (checkvalue === 'true'){
        $localStorage.exclude =$localStorage.exclude.concat(some)
        console.log('added:', news.exclude)
-       $http.post('http://localhost:8000/api/feeds/exclude/', {source: some}).then (function(response){console.log(response.data)}, function errorCallback(response){console.log ('Error already added')} )
+       $http.post(BASE_URL +'exclude/', {source: some}).then (function(response){console.log(response.data)}, function errorCallback(response){console.log ('Error already added')} )
       } 
 
       if (checkvalue === 'false'){
         index = $localStorage.exclude.indexOf(some)
         if (index > -1){
           $localStorage.exclude.splice(index, 1)
-          $http.delete('http://localhost:8000/api/feeds/destroy/' + some).then (function(response){console.log('Deleted', some)})
+          $http.delete(BASE_URL + 'destroy/' + some).then (function(response){console.log('Deleted', some)})
         }
         console.log('removed', some, $localStorage.exclude)
       }
@@ -105,7 +98,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
   return news
 })
 
-.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage, $state){
+.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage, $state, BASE_URL, $q, SettingsSrvc){
 
 
   var favs = {
@@ -113,11 +106,13 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
     token: [],
     favorites: [],
     count: 0,
+    city:[],
 
     auth: function(user){
+
       djangoAuth.login(user.username, user.password).then(function(response){
-        console.log($localStorage.token)
-        $location.path('/tab/chats')
+         $location.path('/tab/chats')
+        
 
       }, function(data){
         console.log('Error')
@@ -131,6 +126,19 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
       })
     },
 
+    username: function(){
+      var deferred = $q.defer();
+      $localStorage.exclude = []
+     var math = Math.floor(Math.random() * 120000001)
+      deferred.resolve( math, $localStorage.exclude)
+
+      return deferred.promise
+
+
+
+
+    }, 
+
     signup: function(user){
         djangoAuth.register(username = user,(password1 = 123456), (password2 = 123456) ).then(function (response){
           console.log(response.key)
@@ -140,7 +148,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
   
     populateFavs:function(){
-      return $http.get('http://localhost:8000/api/feeds/favorite/').then(function(response){  
+      return $http.get(BASE_URL +'favorite/').then(function(response){  
       console.log('Popuating favs', response.data)
       $localStorage.favs = response.data
       console.log('favs', $localStorage.favs)
@@ -149,9 +157,15 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
     },
 
-    deleteFavs: function( index, favorite){
+    returnFavs: function(){
+            console.log("returned favs")
 
-      return $http.delete('http://localhost:8000/api/feeds/updatefavorite/' + favorite.id).then(function (response){
+      return $localStorage.favs
+    },
+
+    deleteFavs: function(index, favorite){
+
+      return $http.delete(BASE_URL +'updatefavorite/' + favorite.id).then(function (response){
         $localStorage.favs.splice(index, 1)
         console.log('deleted', favorite)
       }, function(response){console.log ('Couldnt delete', response.data)} )
@@ -159,11 +173,11 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
     addFavs: function(news){
       
-        return $http.post('http://localhost:8000/api/feeds/favorite/', {fav_id: news.id, title: news.title, link:news.link, time:news.time, image:news.image, source:news.source} ).then(function(){
+        return $http.post(BASE_URL +'favorite/', {fav_id: news.id, title: news.title, link:news.link, time:news.time, image:news.image, source:news.source} ).then(function(){
      favs.count ++;
   
       }, function(response){
-        console.log("Error", $localStorage.token)
+        // console.log("Error", $localStorage.token)
       })      
  },
     
@@ -172,21 +186,23 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
     },
 
     states: function(main, location){
-      return $http.post('http://localhost:8000/api/feeds/state/', {state: main, city:location})
+      return $http.post(BASE_URL + 'state/', {state: main, city:location.formatted_address}).then(function(){
+        
+      })
     }
   }
  return favs
 
 })
 
-.factory('SettingsSrvc', function($localStorage, $http){
+.factory('SettingsSrvc', function($localStorage, $http, BASE_URL){
 
   var settings = {
 
     city: [],
 
     cities: function(){
-      return $http.get('http://localhost:8000/api/feeds/city/').then(function(response){
+      return $http.get(BASE_URL + 'city/').then(function(response){
         console.log(response.data)
         $localStorage.city = response.data
         console.log($localStorage.city)
@@ -198,13 +214,14 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
     },
 
     removeLocation: function(index, state){
-      return $http.delete('http://localhost:8000/api/feeds/stateupdate/' + state.id).then(function(){
+      return $http.delete(BASE_URL +'stateupdate/' + state.id).then(function(){
+        $localStorage.city.splice(index,1)
 
       })
     },
 
     suggestion: function(name, link, location){
-      return $http.post('http://localhost:8000/api/feeds/suggest/', {name:name, link:link, location:location})
+      return $http.post(BASE_URL + 'suggest/', {name:name, link:link, location:location})
 
     }
 

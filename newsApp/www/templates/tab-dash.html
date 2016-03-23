@@ -6,7 +6,7 @@
   <ion-content class = "splashpage">
   
   <ion-refresher pulling-text = 'Pull to refresh...'
-  on-refresh = "doRefresh()"> </ion-refresher>
+  on-refresh = "doRefresh()" > </ion-refresher>
     
 <ion-list>
 
@@ -28,14 +28,12 @@
   <div class=" row item item-divider item-dark ">
     
      <p class="col source"> via {{news.source}}</p>
-      <div class="col  larger" >
-          
-           <p class="larger">  
-            <i class="ion-ios-heart larger "  ng-click="addFavorites({{news}}) "></i> 
-             &nbsp; &nbsp; &nbsp; 
+      <div class="col  larger">
+           <p>  
+            <i class="ion-ios-heart dash larger"  ng-click="addFavorites({{news}}) "></i> 
+             &nbsp; &nbsp; &nbsp; &nbsp; 
 
-
-              <i class="ion-ios-upload-outline larger" ng-click = "share({{news}})" > </i>   
+             <i class="ion-ios-upload dash larger" ng-click = "share({{news}})" > </i>   &nbsp; &nbsp;
               </p>  
       </div> 
   </div>

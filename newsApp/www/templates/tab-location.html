@@ -1,4 +1,9 @@
-<ion-view cache-view= "false">
+<ion-view can-swipe-back="true">
+<ion-header-bar class = "bar-balanced">
+   <ion-nav-back-button class="button-positive">
+    <i class="ion-arrow-left-c"></i> Back
+  </ion-nav-back-button>
+</ion-header-bar>
 	<ion-nav-title class = "item-icon-right">
 		<span class="title white"> Locations</span>
 	 <i ng-click = "openPopover($event)" class="icon ion-ios-information larger white"></i> 

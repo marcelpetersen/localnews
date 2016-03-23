@@ -1,9 +1,9 @@
 angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRegistrationAuthApp', 'google.places'])
 
-    .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc, $localStorage){
+    .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc, $localStorage, $rootScope){
     $ionicPlatform.ready(function(){
       var options ={
-        location:'yes',
+        location:'no',
         clearcache:'yes',
         toolbar: 'yes',
         closebuttoncaption: '<button class="button button-royal">Done</button>'
@@ -24,7 +24,6 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
 
 
     })
-      
 
         newsSrvc.all().then(function(){
           $scope.main = newsSrvc.feeds;
@@ -48,14 +47,16 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
 
       $scope.addFavorites = function(news){
         console.log (news)
-        FavSrvc.addFavs(news) 
+        FavSrvc.addFavs(news).then(function(){
+          $rootScope.$emit("refresh", {})
+        })
+
       };
 
       $scope.share = function(news){
         console.log(news.link)
         console.log(news.title)
-        window.plugins.socialsharing.share(('via LocalNews App: '+ news.title), null, null, news.link)
-
+        window.plugins.socialsharing.share('via LocalNews App: '+ news.title, null, null, news.link)
 
       }
 
@@ -66,9 +67,10 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
 })
 
 
-  .controller('SourceCtrl', function($scope, FavSrvc, newsSrvc, $localStorage){
+  .controller('SourceCtrl', function($scope, FavSrvc, newsSrvc, $localStorage, $rootScope){
         $scope.checkvalue = {}
-        newsSrvc.getSources().then(function(){
+
+     var intiSources = function(){ newsSrvc.getSources().then(function(){
           $scope.sources = newsSrvc.sources
           angular.forEach($scope.sources, function(source){
             var present = $localStorage.exclude.indexOf(source.source)
@@ -83,9 +85,12 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
               console.log($localStorage.exclude)
           })
         });
-        var array = ['local', 'smokal', 'okal']
-        var weak = array.indexOf('local')
-        console.log (weak)
+   }  
+          intiSources()
+          $rootScope.$on("intiSources", function(){
+            intiSources();
+            console.log("intiSources")
+          })
 
         $scope.look = function(checkvalue, some){
           console.log(checkvalue, some.source)
@@ -98,12 +103,21 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
         
  })
 
- .controller('FavoritesCtrl', function($scope,FavSrvc, $localStorage){
+ .controller('FavoritesCtrl', function($scope,FavSrvc, $localStorage, $rootScope){
 
-       
+      var init = function(){ 
       FavSrvc.populateFavs().then(function(){
         $scope.favorites = $localStorage.favs
+      })}
+
+      init();
+
+      $rootScope.$on("refresh", function(){
+        init()
+        console.log("emitted")
       })
+
+      // $scope.favorites = $localStorage.favs
 
       $scope.favDelete = function($index, favorite){
           FavSrvc.deleteFavs($index, favorite).then(function(){
@@ -168,11 +182,12 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
           ]
         });
       }
+
 $ionicPlatform.ready(function(){
       $scope.report = function(){
         window.plugins.socialsharing.shareViaEmail(
             'Message', 
-            'Subject',
+            'Bug Report',
             ['felix@studentpay.co'], 
             null, // CC: must be null or an array
             null, // BCC: must be null or an array
@@ -201,29 +216,21 @@ $ionicPlatform.ready(function(){
       })
 
 .controller('SplashCtrl', function($scope, $state, FavSrvc, $ionicPlatform, $cordovaDevice, $localStorage){
-       $scope.result2 = '';
-    $scope.options2 = {
-      country: 'ca',
-      types: '(cities)'
-    };    $scope.details2 = '';
     
-
-    $scope.restrictState = function(state){
-
       $scope.place = null;
-      $scope.autocompleteOptions ={
+      $scope.autocompleteOptions = {
         componentRestrictions:{country: 'us'},
-        types: ['cities']
+        types: ['(cities)']
       }
-    };
+    
 
     $scope.getState = function(state){
       var value = state.formatted_address.split(', ');
-      var main = value[1]
+      var main = value[1].substring(0,2)
       var city = state.formatted_address
       console.log(main)
       console.log(state.formatted_address)
-      FavSrvc.states(main, city).then(function(){
+      FavSrvc.states(main, state).then(function(){
         $state.go('tab.dash')
 
       })
@@ -231,37 +238,17 @@ $ionicPlatform.ready(function(){
 
 
     $ionicPlatform.ready(function() {
-      if(ionic.Platform.isAndroid()){
-        // var num = Math.floor(Math.random() * 12000000)
-        var UUID = $cordovaDevice.getUUID();
-        console.log("UUID", UUID)
-        // var result = UUID + num
-        // console.log('iosID' + UUID)
-        // console.log(result)
-        var shaUser = new jsSHA("SHA-1", "TEXT");
-        shaUser.update(UUID);
-        var hash = shaUser.getHash("HEX");
-        console.log(hash)
-        FavSrvc.signup(hash)
-        
-        }else{
-        console.log("Is not Android");
-        var result= "878dsdiofjg"
-        console.log(result)
-        var shaUser = new jsSHA("SHA-1", "TEXT");
-        shaUser.update(result);
-        var hash = shaUser.getHash("HEX");
-        console.log(hash)
-        FavSrvc.signup(hash)
-        
-      };
-      $localStorage.exclude = []
+         FavSrvc.username().then(function(res){
+            console.log(res)
+            FavSrvc.signup(res)
+          })
+
     });
 
     })
 
 
-.controller('LocationCtrl', function($scope, $ionicPlatform, $ionicPopover, FavSrvc, $state, SettingsSrvc, $localStorage){
+.controller('LocationCtrl', function($scope,$timeout, $ionicPlatform, $ionicPopover, FavSrvc, $state, SettingsSrvc, $localStorage, $rootScope){
     $ionicPlatform.ready(function(){
        $ionicPopover.fromTemplateUrl('templates/partials/locationpopover.html', {
         scope: $scope
@@ -279,37 +266,40 @@ $ionicPlatform.ready(function(){
         })
 
 
-
+var init = function(){
     SettingsSrvc.cities().then(function(){
-      $scope.locations = $localStorage.city
+      $scope.locations = $localStorage.city       // $scope.safeApply()
     })
-    $scope.locations = SettingsSrvc.addedLocations()
+  }
 
+    init();
+  
+
+  
     
-    $scope.restState = function(state){
 
       $scope.place = null;
       $scope.autocompleteOptions ={
         componentRestrictions:{country: 'us'},
-        types: ['cities']
+        types: ['(cities)']
       }
-    };
 
-      $scope.getState = function(state){
+       $scope.getState = function(state){
       var value = state.formatted_address.split(', ');
-      var main = value[1]
+      var main = value[1].substring(0,2)
       var city = state.formatted_address
       console.log(main)
       console.log(state.formatted_address)
-      FavSrvc.states(main, city).then(function(){
-        console.log($localStorage.city)
-        $state.reload()
+      FavSrvc.states(main, state).then(function(){
+       init(); 
+      $rootScope.$emit("intiSources", {})  
+        console.log("trynidngdfl")
       })
     }
 
       $scope.delete = function(index, state){
         SettingsSrvc.removeLocation(index, state).then(function(){
-          $state.reload()
+          $rootScope.$emit("intiSources", {}) 
         })
       }
 

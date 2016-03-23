@@ -1,26 +1,17 @@
-<ion-view cache-view ="false">
+<ion-view>
   <ion-nav-title>
     <span class="white">News Sources</span>
   </ion-nav-title>
   <ion-content class = "splashpage">
     <div class="list ">
 
-  <li class="item item-toggle splashpage white" ng-repeat ="source in sources" >
-     {{source.source}}
-     <label class="toggle toggle-balanced">
-       <input type="checkbox"  ng-model = "source.checkvalue" 
+  <ion-toggle class="item item-text-wrap favorite white" ng-repeat = "source in sources"  ng-model = "source.checkvalue" 
        ng-change = "look('{{source.checkvalue}}', source)" >
-       
-       <div class="track">
-         <div class="handle"></div>
-       </div>
-     </label>
-  </li>
-
-  
+    {{source.source}}
+    
+  </ion-toggle>
 
 </div>
   </ion-content>
 </ion-view>
 
-<!-- ng-true-value = "'add'" ng-false-value = "'remove'"  -->
