@@ -1,11 +1,19 @@
 <ion-view>
   <ion-nav-title>
-    <span class="white">News Sources</span>
+      <span class="title white"> News Sources </span>
+      <div class="buttons">
+      
+       </div>
   </ion-nav-title>
-  <ion-content class = "splashpage">
-    <div class="list ">
 
-  <ion-toggle class="item item-text-wrap favorite white" ng-repeat = "source in sources"  ng-model = "source.checkvalue" 
+  <ion-header-bar class = "bar-balanced"> 
+ 
+   </ion-header-bar>
+
+  <ion-content class = "splashpage">
+    <div class="list">
+
+  <ion-toggle class="item item-text-wrap favorite white" ng-repeat = "source in sources" ng-model = "source.checkvalue" 
        ng-change = "look('{{source.checkvalue}}', source)" >
     {{source.source}}
     

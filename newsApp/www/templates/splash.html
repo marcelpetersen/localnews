@@ -1,14 +1,20 @@
-<ion-view view-title= "splash" hide-nav-bar= "true" cache-view = "false">
+<ion-view hide-nav-bar= "true" cache-view = "false">
 <ion-content class = "splashpage">
-	<div class="splash list">
-  <label class="item item-input item-floating-label ">
-    <span  class="input-label"> <i class="ion-location"></i> News around:</span>
 
-     <input type="text" g-places-autocomplete options = "autocompleteOptions" ng-model="place" placeholder="Enter City, e.g Tulsa, OK, USA" style="color: white;" />
+	<div class="splash list">
+	<center>
+		<img class="logo slideup" ng-src="img/logo3.png">
+	
+	</center>
+	
+  <label class="item item-input item-floating-label slideup ">
+    <span  class="input-label white"> <i class="ion-location"></i> News around:</span>
+
+     <input class="" type="text" g-places-autocomplete options = "autocompleteOptions" ng-model="place" placeholder="Enter City, e.g Tulsa, OK, USA" style="color: white;" />
    
   </label>
 
-  	<button class="button button-block button-energized" style="margin-top: 30px;" ng-click = "getState(place)">
+  	<button class="button button-block button-energized slideup" style="margin-top: 30px;" ng-click = "getState(place)">
   		Get News
   	</button>
 

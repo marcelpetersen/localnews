@@ -1,6 +1,11 @@
 angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRegistrationAuthApp', 'google.places'])
+    .constant('$ionicLoadingConfig',{
+      template: '<ion-spinner> </ion-spinner>',
+      noBackdrop: true,
 
-    .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc, $localStorage, $rootScope){
+
+    })
+    .controller('MainCtrl', function ($scope, newsSrvc, $state, $cordovaInAppBrowser, $ionicPlatform, moment, FavSrvc, $localStorage, $rootScope, $ionicLoading){
     $ionicPlatform.ready(function(){
       var options ={
         location:'no',
@@ -10,23 +15,24 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
       };
 
       $scope.openBrowser = function(link){
-        $cordovaInAppBrowser.open(link, '_blank', options)
+        $cordovaInAppBrowser.open(link.link, '_blank', options)
         .then(function(event){
-          console.log("Browser opened")
 
         })
         .catch(function(event){
-          console.log("error")
-
-        });
-        
+        });   
       }
-
-
     })
+
+
+      var loading = function(){
+         $ionicLoading.show();
+      } 
+      loading()
 
         newsSrvc.all().then(function(){
           $scope.main = newsSrvc.feeds;
+          $ionicLoading.hide()
         })
       
       $scope.doRefresh = function(){
@@ -42,11 +48,9 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
         newsSrvc.getNext().then(function(){
           $scope.main = newsSrvc.feeds
         })
-        console.log('More Gotten')
       } 
 
       $scope.addFavorites = function(news){
-        console.log (news)
         FavSrvc.addFavs(news).then(function(){
           $rootScope.$emit("refresh", {})
         })
@@ -54,82 +58,81 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
       };
 
       $scope.share = function(news){
-        console.log(news.link)
-        console.log(news.title)
-        window.plugins.socialsharing.share('via LocalNews App: '+ news.title, null, null, news.link)
+        window.plugins.socialsharing.share('via Just Local News App: '+ news.title, null, null, news.link)
 
-      }
-
-
-
-
-        
+      }        
 })
 
 
-  .controller('SourceCtrl', function($scope, FavSrvc, newsSrvc, $localStorage, $rootScope){
+  .controller('SourceCtrl', function($scope, FavSrvc, newsSrvc, $localStorage, $rootScope, $ionicLoading){
         $scope.checkvalue = {}
-
+        $ionicLoading.show()
      var intiSources = function(){ newsSrvc.getSources().then(function(){
           $scope.sources = newsSrvc.sources
           angular.forEach($scope.sources, function(source){
             var present = $localStorage.exclude.indexOf(source.source)
-            console.log(source.source)
 
-            console.log(present)
             if (present === -1){
               source.checkvalue =true;}
               else {
                 source.checkvalue = false;
               }
-              console.log($localStorage.exclude)
           })
+          $ionicLoading.hide()
         });
    }  
           intiSources()
           $rootScope.$on("intiSources", function(){
             intiSources();
-            console.log("intiSources")
           })
 
         $scope.look = function(checkvalue, some){
-          console.log(checkvalue, some.source)
           newsSrvc.filter(checkvalue, some.source)
         }
-
-        
-
-
-        
+      
  })
 
- .controller('FavoritesCtrl', function($scope,FavSrvc, $localStorage, $rootScope){
+ .controller('FavoritesCtrl', function($scope,FavSrvc, $localStorage, $rootScope, $ionicLoading, $ionicPlatform, $cordovaInAppBrowser){
+  $ionicPlatform.ready(function(){
+      var options ={
+        location:'no',
+        clearcache:'yes',
+        toolbar: 'yes',
+        closebuttoncaption: '<button class="button button-royal">Done</button>'
+      };
 
+      $scope.openBrowser = function(link){
+        $cordovaInAppBrowser.open(link.link, '_blank', options)
+        .then(function(event){
+        })
+        .catch(function(event){
+          console.log("error")
+
+        });   
+      }
+    })
+      $ionicLoading.show()
       var init = function(){ 
       FavSrvc.populateFavs().then(function(){
         $scope.favorites = $localStorage.favs
+              $ionicLoading.hide()
+
       })}
 
       init();
 
       $rootScope.$on("refresh", function(){
         init()
-        console.log("emitted")
       })
-
-      // $scope.favorites = $localStorage.favs
 
       $scope.favDelete = function($index, favorite){
           FavSrvc.deleteFavs($index, favorite).then(function(){
            // $scope.favorites = FavSrvc.favorites
-          
-          console.log(favorite); })
+           })
       }
 
         $scope.share = function(news){
-        console.log(news.link)
-        console.log(news.title)
-        window.plugins.socialsharing.share(('via LocalNews App: '+ news.title), null, null, news.link)
+        window.plugins.socialsharing.share(('via Just Local News App: '+ news.title), null, null, news.link)
       }
 
 
@@ -144,7 +147,6 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
       $scope.onTabSelected = function(){
         
       FavSrvc.count = 0;
-      console.log("Entered")
       } 
       
 
@@ -162,7 +164,7 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
         // An elaborate, custom popup
         var myPopup = $ionicPopup.show({
           templateUrl: 'templates/partials/suggest.html',
-          title: 'Missing a Source Around You?',
+          title: 'Missing A Source Around You?',
           subTitle: 'Please let us know below',
           cssClass:'custom',
           scope: $scope,
@@ -173,9 +175,6 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
               text: '<b>Send</b>',
               type: 'button-energized',
               onTap: function() {
-                console.log($scope.send.name)
-                console.log($scope.send.link)
-
                 SettingsSrvc.suggestion($scope.send.name, $scope.send.link, $scope.send.location)
                 }
               }   
@@ -183,10 +182,21 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
         });
       }
 
+       $scope.popUp = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Version 1.0.0',
+     // template: 'Built With Love, By Fizzle :)'
+   });
+
+ };
+
+
+
+
 $ionicPlatform.ready(function(){
       $scope.report = function(){
         window.plugins.socialsharing.shareViaEmail(
-            'Message', 
+            '', 
             'Bug Report',
             ['felix@studentpay.co'], 
             null, // CC: must be null or an array
@@ -197,21 +207,18 @@ $ionicPlatform.ready(function(){
     })
 
       $scope.rateApp = function () {
-        console.log("rating waiting")
           if (ionic.Platform.isIOS()) {
-              $window.open('itms-apps://itunes.apple.com/us/app/domainsicle-domain-name-search/id511364723?ls=1&mt=8'); // or itms://
+              $window.open('https://itunes.apple.com/us/app/just-local-news/id1100162952?ls=1&mt=8'); // or itms://
           } else if (ionic.Platform.isAndroid()){
-              $window.open('market://details?id=<package_name>');
+              $window.open('market://details?id=com.fizzle.localnews');
           }
       }
 
 
       $scope.shareApp = function(){
-        window.plugins.socialsharing.share('Get the Local News app, If it\'s happening around you, find out on Local News App', null, null, null)
+        window.plugins.socialsharing.share('Get the Just Local News App, If it\'s happening around you, find out on Local News App', null, null, null)
 
       }
-
-
 
       })
 
@@ -228,8 +235,6 @@ $ionicPlatform.ready(function(){
       var value = state.formatted_address.split(', ');
       var main = value[1].substring(0,2)
       var city = state.formatted_address
-      console.log(main)
-      console.log(state.formatted_address)
       FavSrvc.states(main, state).then(function(){
         $state.go('tab.dash')
 
@@ -239,7 +244,6 @@ $ionicPlatform.ready(function(){
 
     $ionicPlatform.ready(function() {
          FavSrvc.username().then(function(res){
-            console.log(res)
             FavSrvc.signup(res)
           })
 
@@ -248,7 +252,7 @@ $ionicPlatform.ready(function(){
     })
 
 
-.controller('LocationCtrl', function($scope,$timeout, $ionicPlatform, $ionicPopover, FavSrvc, $state, SettingsSrvc, $localStorage, $rootScope){
+.controller('LocationCtrl', function($scope,$timeout, $ionicPlatform, $ionicPopover, FavSrvc, $state, SettingsSrvc, $localStorage, $rootScope, $ionicLoading){
     $ionicPlatform.ready(function(){
        $ionicPopover.fromTemplateUrl('templates/partials/locationpopover.html', {
         scope: $scope
@@ -269,14 +273,13 @@ $ionicPlatform.ready(function(){
 var init = function(){
     SettingsSrvc.cities().then(function(){
       $scope.locations = $localStorage.city       // $scope.safeApply()
+      $ionicLoading.hide()
+
     })
   }
 
     init();
-  
-
-  
-    
+     $ionicLoading.show()
 
       $scope.place = null;
       $scope.autocompleteOptions ={
@@ -285,15 +288,15 @@ var init = function(){
       }
 
        $scope.getState = function(state){
+        $ionicLoading.show()
       var value = state.formatted_address.split(', ');
       var main = value[1].substring(0,2)
       var city = state.formatted_address
-      console.log(main)
-      console.log(state.formatted_address)
       FavSrvc.states(main, state).then(function(){
        init(); 
-      $rootScope.$emit("intiSources", {})  
-        console.log("trynidngdfl")
+             $ionicLoading.hide()
+
+      $rootScope.$emit("intiSources", {}) 
       })
     }
 
@@ -302,17 +305,10 @@ var init = function(){
           $rootScope.$emit("intiSources", {}) 
         })
       }
+})
 
-
-
-
-
-
-
-
-
-
-
+.controller('PrivacyCtrl', function($scope){
+  
 
 })
 

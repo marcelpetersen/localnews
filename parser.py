@@ -6,29 +6,33 @@ import psycopg2
 with psycopg2.connect("dbname ='feedparser' user ='admin' password= 'admin' host = 'localhost' ") as dbconnect:
 	cur = dbconnect.cursor()
 
-	url = ('http://www.news9.com/category/211667/news9com-news-rss?clienttype=rss',
-			'http://www.koco.com/9844956?format=rss_2.0&view=feed',
-			'http://www.kswo.com/category/216452/kpho-newstream?clienttype=rss'
-			'http://ktul.membercenter.worldnow.com/global/category.asp?C=189710&clienttype=rss',
-			'http://www.newson6.com/category/208401/newson6com-news-rss?clienttype=rss',
-			'http://www.fox23.com/feeds/rssFeed?obfType=RSS_DETAIL&siteId=600013&categoryId=500001',
-			'http://www.krmg.com/list/rss/news/local/top-local-stories/aPM/',
-			'http://publicradiotulsa.org/feeds/term/49/rss.xml',   
-			'http://www.choctawnation.com/rss',
-			'http://www.tulsaworld.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss', 
-			'http://www.baptistmessenger.com/feed/',
-			'http://okmulgeenews.net/local-news?format=feed',
-			'http://swoknews.com/rss.xml',
-			'http://www.woodwardnews.net/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local_news,news/local_news/*&f=rss',
-			'http://www.miamiok.com/news?template=rss&mime=xml',
-			'http://www.ardmoreite.com/news?template=rss&mime=xml',
-			'http://examiner-enterprise.com/news/local-news/feed',
-			'http://www.ocolly.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
-			'http://www.oudaily.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/state*&f=rss',
-			'http://www.news-star.com/news?template=rss&mime=xml'
-
+	url = (
+			'http://www.ksfy.com/home/headlines/index.rss2',
+			'http://www.kotatv.com/news/south-dakota-news/26933602?format=rss_2.0&view=feed',
+			'http://www.kdlt.com/news/local-news/29767676?format=rss_2.0&view=feed',
+			'http://www.keloland.com/feeds/NewsRssFeed',
+			'http://www.newscenter1.tv/category/308614/local-news?clienttype=rss',
+			'http://www.kbhbradio.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news,news/*&f=rss',
+			'http://www.drgnews.com/category/news/feed/',
+			'http://www.gowatertown.net/category/local-news/feed/',
+			'http://ksoo.com/category/news/feed/',
+			'http://www.hubcityradio.com/feed/',
+			'http://wnax.com/feed/',
+			'http://www.aberdeennews.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
+			'http://rssfeeds.argusleader.com/siouxfalls/news&x=1',
+			'http://www.bhpioneer.com/search/?q=&t=article&l=100&d=&d1=&d2=&s=start_time&sd=desc&nsa=eedition&c[]=news/state_news,news/state_news/*&f=rss',
+			'http://www.brookingsregister.com/News.xml',
+			'http://www.capjournal.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
+			'http://www.freemansd.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
+			'http://www.plainsman.com/TopStories.xml',
+			'http://www.mitchellrepublic.com/news/rss/',
+			'http://www.plaintalk.net/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=local_news,local_news/*&f=rss',
+			'http://rapidcityjournal.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
+			'http://www.truedakotan.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
+			'http://www.thepublicopinion.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
+			'http://www.yankton.net/search/?q=&t=article&l=100&d=&d1=&d2=&s=start_time&sd=desc&nsa=eedition&c[]=sports,sports/*&f=rss',
+			
 			)
-
 	for link in url:
 		d = feedparser.parse(link)
 
@@ -37,44 +41,28 @@ with psycopg2.connect("dbname ='feedparser' user ='admin' password= 'admin' host
 
 			title = data.title
 			link = data.link
-			time = data.published
+			try:
+				time = data.published
+			except AttributeError:
+				try:
+					time = d.feed.published
+				except AttributeError:
+					time = data.updated
+
 			try: 
 				imageUrl = data.links[1].href
-			except IndexError: 
+			except (IndexError, AttributeError): 
 				try:
 					imageUrl = data.media_content[0]['url']
-				except AttributeError:
+				except (AttributeError, KeyError):
 					imageUrl = ''
 
 			source = d.feed.title
-			location = "OK"
+			location = "SD"
 
 			try:
+				print source
 				cur.execute("""INSERT INTO feeds_feeds(title, link, time, image, source, location) VALUES (%s, %s, %s, %s, %s, %s)""", (title, link, time, imageUrl, source, location))
 				dbconnect.commit()
 			except psycopg2.IntegrityError:
 				dbconnect.rollback()
-				
-
-				
-
-			# print title,'\n', link, '\n',time,'\n', imageUrl,'\n', source, '\n'
-
-
-
-
-# with open ('parsed.txt', 'wb') as parsed:
-
-
-# 	datalist = []
-# 	for data in d.entries:
-# 		title = data.title
-# 		date = data.published
-# 		description = data.description
-# 		image = data.links[1].href
-
-# 	parsed.write(data)
-
-	# 	datalist.append(data)
-	# str(datalist)
-	# parsed.write(datalist)

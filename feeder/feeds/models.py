@@ -15,11 +15,11 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 class Feeds(models.Model):
-	title = models.CharField(max_length = 255, unique = True)
-	link = models.URLField(max_length = 255)
+	title = models.TextField(unique = True)
+	link = models.TextField()
 	time = models.DateTimeField()
-	image = models.URLField(max_length = 255)
-	source = models.CharField (max_length = 255)
+	image = models.TextField(max_length=400)
+	source = models.TextField (max_length=400)
 	location = models.CharField(max_length=2)
 
 	def __unicode__(self):
@@ -72,6 +72,12 @@ class Suggestions(models.Model):
 
 	class Meta:
 		ordering = ["-id"]
+
+
+class Email(models.Model):
+	email = models.EmailField(max_length=254)
+	subject = models.CharField(max_length=254)
+	message = models.TextField()
 
 
 

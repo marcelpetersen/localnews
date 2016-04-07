@@ -109,4 +109,11 @@ class SuggestView(generics.ListCreateAPIView):
 	def perform_create(self, serializer):
 		serializer.save(user = self.request.user)
 
+class EmailView(generics.ListCreateAPIView):
+	queryset = Email.objects.all()
+	serializer_class = EmailSerializer
+
+def mainview(request):
+	return render(request, "index.html")
+
 

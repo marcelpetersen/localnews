@@ -3,32 +3,39 @@
       <span class="white">Settings</span>
       </ion-nav-title>
 
-  <ion-content class = "splashpage">
-    <ion-list class = "splashpage">
-    <div class="list white">
+       
+  <ion-header-bar class = "bar-balanced"> 
+ 
+   </ion-header-bar>
 
-        <div class="item item-divider settings">
+  <ion-content class = "splashpage sliding">
+    <ion-list class = "splashpage">
+    <div class="list">
+
+        <div class="item item-divider settings white">
          GENERAL
         </div>
 
-              <ion-toggle class="item item-icon-left favorite white" >
-                <i class="icon ion-android-notifications"></i>
-                Enable Notifications
-              </ion-toggle>
-
-              <ion-item class="item item-icon-left item-icon-right favorite white" href="#/tab/account/location"> 
-                <i class="icon ion-location"></i>
-                Add Location
-                <i class="icon ion-ios-arrow-right"></i> 
+              <ion-item class="item item-icon-left favorite" ng-click = "popUp()" >
+                <i class="icon ion-ios-clock-outline"></i>
+                Version
               </ion-item>
 
+               <a class="item favorite item-icon-left item-icon-right" ng-href="#/tab/account/location">
+
+               <i class="icon ion-location"></i>
+                Add Location
+                <i class="icon ion-ios-arrow-right"></i> 
+               </a> 
+
+    
               <ion-item class="item item-icon-left favorite " ng-click = "showPopup()">
                 <i class="icon ion-link"></i>
                 Suggest Source
                 
               </ion-item>
 
-       <div class="item item-divider settings">
+       <div class="item item-divider settings white">
         HELP
       </div>
             <ion-item ng-click= "report()" class="item item-icon-right favorite">
@@ -36,11 +43,12 @@
                 <i class="icon ion-bug"></i>
             </ion-item>
 
-            <ion-item class="item item-icon-right favorite">
+            
+            <a class="item item-icon-right favorite" ng-href="#/tab/account/privacypolicy">
                 Privacy Policy
-                <i class="icon ion-lock-combination"></i>
-            </ion-item>
-
+                <i class="icon ion-lock-combination"></i> 
+               </a> 
+        
             <ion-item class="item item-icon-right favorite" ng-click="rateApp()">
                 Rate this app
                 <i class="icon ion-ios-star"></i>

@@ -2,19 +2,26 @@
   <ion-nav-title>
      <span class="white"> Headlines </span> 
   </ion-nav-title>
+  
+  <ion-header-bar class = "bar-balanced"> 
+ 
+   </ion-header-bar>
 
-  <ion-content class = "splashpage">
+
+  <ion-content overflow-scroll = "true" class = "splashpage">
   
   <ion-refresher pulling-text = 'Pull to refresh...'
-  on-refresh = "doRefresh()" > </ion-refresher>
+  on-refresh = "doRefresh()" 
+  spinner = "spiral"
+  > </ion-refresher>
     
-<ion-list>
+<ion-list class = "splashpage">
 
   
-  <div class="card newsItem " ng-repeat= "news in main">
+  <div class="card newsItem " collection-repeat= "news in main" item-height = "120px">
   
   
-      <div class=" row item item-text-wrap black " ng-click = "openBrowser('{{news.link}}')">
+      <div class=" row item item-text-wrap black " ng-click = "openBrowser(news)">
           <div class="col-40 "> 
               <img class="newsimage " ng-src="{{news.image}}"  > 
            </div>
@@ -28,23 +35,23 @@
   <div class=" row item item-divider item-dark ">
     
      <p class="col source"> via {{news.source}}</p>
-      <div class="col  larger">
+      <div class="col larger">
            <p>  
-            <i class="ion-ios-heart dash larger"  ng-click="addFavorites({{news}}) "></i> 
+            <i class="ion-ios-heart dash larger"  ng-click="addFavorites(news) "></i> 
              &nbsp; &nbsp; &nbsp; &nbsp; 
 
-             <i class="ion-ios-upload dash larger" ng-click = "share({{news}})" > </i>   &nbsp; &nbsp;
+             <i class="ion-ios-upload dash larger" ng-click = "share(news)" > </i>   &nbsp; &nbsp;
               </p>  
       </div> 
   </div>
-
- 
 </div>
 
-
 </ion-list>
-<button class="button button-block button-energized" ng-click = "getMore()"> More Headlines</button>
-<!-- <button class="button button-block button-royal" ng-click = "openBrowser('http://google.com')"> More</button> -->
+
+<div class = "moreheadlines" >
+<button class="button button-block button-energized" ng-click = "getMore()" > More Headlines</button>
+</div>
+
     
   </ion-content>
 </ion-view>

@@ -59,8 +59,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
           $state.go('tab.dash')}
           else{
             $state.go('splash')
-          }
-        
+          }  
       })
     }
   })
@@ -128,6 +127,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       'tab-account':{
           templateUrl: 'templates/tab-location.html',
           controller: 'LocationCtrl'
+        }
+      }
+  })
+
+  .state('tab.privacy', {
+    url: '/account/privacypolicy',
+    views:{
+      'tab-account':{
+          templateUrl: 'templates/partials/privacypolicy.html',
+          controller: 'PrivacyCtrl'
         }
       }
   })

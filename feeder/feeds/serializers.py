@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import Feeds, Exclude, Favorites, States, Suggestions
+from models import Feeds, Exclude, Favorites, States, Suggestions, Email
 from django.contrib.auth.models import User
 from django.http import request, HttpResponse
 
@@ -61,6 +61,11 @@ class SuggestSerializer(serializers.ModelSerializer):
 		model = Suggestions
 		fields = ('id', 'name', 'user', 'link', 'location')
 
+
+class EmailSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Email
+		fields = ('__all__')
 
 
 

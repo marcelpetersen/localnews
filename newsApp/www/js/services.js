@@ -47,8 +47,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
 
     all: function(){
-        return $http.get(BASE_URL + '?limit=10&offset=1').then(function(response){
-        console.log ('got data',response.data);
+        return $http.get(BASE_URL + '?limit=35&offset=1').then(function(response){
         news.next = response.data.next
         news.feeds = response.data.results;
       })
@@ -59,15 +58,12 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
           return $http.get(news.next).then(function(response){
 
             news.feeds = news.feeds.concat(response.data.results);
-            console.log(response.data)
             news.next = response.data.next
-            console.log(news.next)
             })
           
         },
     getSources: function(){
       return $http.get(BASE_URL + 'source/').then(function(response){
-        console.log(response.data)
         news.sources = response.data;
 
 
@@ -77,8 +73,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
     filter: function(checkvalue, some){
       if (checkvalue === 'true'){
        $localStorage.exclude =$localStorage.exclude.concat(some)
-       console.log('added:', news.exclude)
-       $http.post(BASE_URL +'exclude/', {source: some}).then (function(response){console.log(response.data)}, function errorCallback(response){console.log ('Error already added')} )
+       $http.post(BASE_URL +'exclude/', {source: some}).then (function(response){}, function errorCallback(response){console.log ('Error already added')} )
       } 
 
       if (checkvalue === 'false'){
@@ -87,7 +82,6 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
           $localStorage.exclude.splice(index, 1)
           $http.delete(BASE_URL + 'destroy/' + some).then (function(response){console.log('Deleted', some)})
         }
-        console.log('removed', some, $localStorage.exclude)
       }
     }
 
@@ -98,7 +92,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
   return news
 })
 
-.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage, $state, BASE_URL, $q, SettingsSrvc){
+.factory('FavSrvc', function($http, djangoAuth, $location, $localStorage, $state, BASE_URL, $q, SettingsSrvc, $ionicHistory){
 
 
   var favs = {
@@ -122,7 +116,10 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
     logout: function(){
       djangoAuth.logout().then(function(res){
-        $location.path('/splash')
+        $ionicHistory.clearCache().then(function(){
+          $location.path('/splash')
+        })
+        
       })
     },
 
@@ -141,7 +138,6 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
     signup: function(user){
         djangoAuth.register(username = user,(password1 = 123456), (password2 = 123456) ).then(function (response){
-          console.log(response.key)
           $localStorage.token = response.key
         })
     },
@@ -149,17 +145,12 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
   
     populateFavs:function(){
       return $http.get(BASE_URL +'favorite/').then(function(response){  
-      console.log('Popuating favs', response.data)
-      $localStorage.favs = response.data
-      console.log('favs', $localStorage.favs)
-      
+      $localStorage.favs = response.data      
       })
 
     },
 
     returnFavs: function(){
-            console.log("returned favs")
-
       return $localStorage.favs
     },
 
@@ -167,8 +158,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
       return $http.delete(BASE_URL +'updatefavorite/' + favorite.id).then(function (response){
         $localStorage.favs.splice(index, 1)
-        console.log('deleted', favorite)
-      }, function(response){console.log ('Couldnt delete', response.data)} )
+      }, function(response){console.log ('ERROR Couldnt delete', response.data)} )
     },
 
     addFavs: function(news){
@@ -177,7 +167,6 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
      favs.count ++;
   
       }, function(response){
-        // console.log("Error", $localStorage.token)
       })      
  },
     
@@ -203,9 +192,7 @@ angular.module('starter.services', ['angularMoment', 'angularDjangoRegistrationA
 
     cities: function(){
       return $http.get(BASE_URL + 'city/').then(function(response){
-        console.log(response.data)
         $localStorage.city = response.data
-        console.log($localStorage.city)
       })
     },
 

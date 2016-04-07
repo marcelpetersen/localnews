@@ -4,11 +4,11 @@ from rest_framework import routers
 from rest_framework.authtoken import views
 from feeds.views import *
 
+
 router = routers.SimpleRouter()
 # router.register (r'destroy', ExcludeDestroyViewSet)
 
 urlpatterns = [
-
     url(r'^admin/', include(admin.site.urls)),
     url(r'^ap/', include(router.urls)),
     url(r'^rest-auth/', include('rest_auth.urls')),
@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^api/feeds/stateupdate/(?P<pk>[0-9]+)$', StateUpdate.as_view(), name = 'stateupdate'),
     url(r'^api/feeds/city/$', City.as_view(), name = 'city'),
     url(r'^api/feeds/suggest/$', SuggestView.as_view(), name = 'suggestion'),
+    url(r'^api/feeds/email/$', EmailView.as_view(), name = 'email'),
+
+    url(r'^$', mainview, name = "inex"),
 
 
 ]

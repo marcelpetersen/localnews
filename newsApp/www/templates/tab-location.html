@@ -1,11 +1,12 @@
 <ion-view can-swipe-back="true">
 <ion-header-bar class = "bar-balanced">
+
    <ion-nav-back-button class="button-positive">
     <i class="ion-arrow-left-c"></i> Back
   </ion-nav-back-button>
 </ion-header-bar>
 	<ion-nav-title class = "item-icon-right">
-		<span class="title white"> Locations</span>
+		<span class="white"> Locations</span>
 	 <i ng-click = "openPopover($event)" class="icon ion-ios-information larger white"></i> 
 	</ion-nav-title>
 
@@ -28,7 +29,7 @@
 
 <ion-list >
 <center>
-	<h4 class="white"> Added Locations </h4>
+	<h4 class="white slideup"> Added Locations </h4>
 </center>
 
  <ion-item ng-repeat ="city in locations" class = "white ">

@@ -3,13 +3,17 @@
     <ion-nav-title>
       <span class="white "> Favorite Stories</span>
         </ion-nav-title>
+         
+  <ion-header-bar class = "bar-balanced"> 
+ 
+   </ion-header-bar>
      
 	<ion-content class= "splashpage">
 	<ion-list>
     <ion-item ng-repeat ="favs in favorites" class = "white ">
   
     <!-- <a class="item item-avatar" href="#"> -->
-    <div class="row favorite">
+    <div class="row favorite" ng-click= "openBrowser(favs)">
     <div class=" col-40">
       <img ng-src="{{favs.image}} " class="newsimage ">
       </div>

@@ -1,0 +1,74 @@
+#!/usr/bin/env python
+import os
+import feedparser
+import psycopg2
+import urlparse
+
+urlparse.uses_netloc.append("postgres")
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+with psycopg2.connect(database=url.path[1:],
+    user=url.username,
+    password=url.password,
+    host=url.hostname,
+    port=url.port) as dbconnect:
+	cur = dbconnect.cursor()
+
+	url = (
+			'http://wgmd.com/feed/',
+			'http://www.delaware1059.com/wxdenews.xml',
+			'http://capegazette.villagesoup.com/rss/story/newsAll',
+			'http://www.hockessincommunitynews.com/news?template=rss&mime=xml',
+			'http://delawarefreenews.org/feed/',
+			'http://feeds.feedblitz.com/destatenews&x=1',
+			'http://rssfeeds.delmarvanow.com/salisbury/news&x=1',
+			'http://www.doverpost.com/news?template=rss&mime=xml',
+			'http://theemeraldtimes.com/feed/',
+			'http://www.middletowntranscript.com/news?template=rss&mime=xml',
+			'http://www.milfordbeacon.com/news?template=rss&mime=xml',
+			'http://www.newarkpostonline.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news,news/*&f=rss',
+			'http://www.scsuntimes.com/news?template=rss&mime=xml',
+			'http://www.sussexcountian.com/news?template=rss&mime=xml',
+			'http://rssfeeds.delawareonline.com/wilmington-news&x=1',
+			
+				)
+
+	for link in url:
+		d = feedparser.parse(link)
+
+		for data in d.entries:
+
+
+			title = data.title
+			link = data.link
+			try:
+				time = data.published
+			except AttributeError:
+				try:
+					time = d.feed.published
+				except AttributeError:
+					time = data.updated
+
+			try: 
+				imageUrl = data.links[1].href
+			except (IndexError, AttributeError): 
+				try:
+					imageUrl = data.media_content[0]['url']
+				except (AttributeError, KeyError):
+					imageUrl = 'http://polar-spire-13485.herokuapp.com/static/img/logo3.png'
+
+			source = d.feed.title
+			location = "DE"
+
+			try:
+				cur.execute("""INSERT INTO feeds_feeds(title, link, time, image, source, location) VALUES (%s, %s, %s, %s, %s, %s)""", (title, link, time, imageUrl, source, location))
+				dbconnect.commit()
+				
+			except psycopg2.IntegrityError:
+				dbconnect.rollback()
+
+				
+				
+
+				
+
+			
