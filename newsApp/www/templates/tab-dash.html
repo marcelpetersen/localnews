@@ -18,12 +18,12 @@
 <ion-list class = "splashpage">
 
   
-  <div class="card newsItem " collection-repeat= "news in main" item-height = "120px">
+  <div class="card newsItem padd" collection-repeat= "news in main" item-height = "120px">
   
   
       <div class=" row item item-text-wrap black " ng-click = "openBrowser(news)">
           <div class="col-40 "> 
-              <img class="newsimage " ng-src="{{news.image}}"  > 
+              <img class="newsimage img-responsive " ng-src="{{news.image}}"  > 
            </div>
 
            <div class="col col-60 ">

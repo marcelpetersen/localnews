@@ -7,31 +7,50 @@ with psycopg2.connect("dbname ='feedparser' user ='admin' password= 'admin' host
 	cur = dbconnect.cursor()
 
 	url = (
-			'http://www.ksfy.com/home/headlines/index.rss2',
-			'http://www.kotatv.com/news/south-dakota-news/26933602?format=rss_2.0&view=feed',
-			'http://www.kdlt.com/news/local-news/29767676?format=rss_2.0&view=feed',
-			'http://www.keloland.com/feeds/NewsRssFeed',
-			'http://www.newscenter1.tv/category/308614/local-news?clienttype=rss',
-			'http://www.kbhbradio.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news,news/*&f=rss',
-			'http://www.drgnews.com/category/news/feed/',
-			'http://www.gowatertown.net/category/local-news/feed/',
-			'http://ksoo.com/category/news/feed/',
-			'http://www.hubcityradio.com/feed/',
-			'http://wnax.com/feed/',
-			'http://www.aberdeennews.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
-			'http://rssfeeds.argusleader.com/siouxfalls/news&x=1',
-			'http://www.bhpioneer.com/search/?q=&t=article&l=100&d=&d1=&d2=&s=start_time&sd=desc&nsa=eedition&c[]=news/state_news,news/state_news/*&f=rss',
-			'http://www.brookingsregister.com/News.xml',
-			'http://www.capjournal.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
-			'http://www.freemansd.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
-			'http://www.plainsman.com/TopStories.xml',
-			'http://www.mitchellrepublic.com/news/rss/',
-			'http://www.plaintalk.net/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=local_news,local_news/*&f=rss',
-			'http://rapidcityjournal.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
-			'http://www.truedakotan.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
-			'http://www.thepublicopinion.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
-			'http://www.yankton.net/search/?q=&t=article&l=100&d=&d1=&d2=&s=start_time&sd=desc&nsa=eedition&c[]=sports,sports/*&f=rss',
-			
+			'http://www.newsplex.com/home/headlines/index.rss',
+			'http://www.nbc29.com/category/85534/local-news?clienttype=rss',
+			'http://www.whsv.com/news/headlines/index.rss',
+			'http://wtkr.com/category/news/feed/',
+			'http://wavy.com/category/news/local-news/feed/',
+			'http://rssfeeds.13newsnow.com/wvec/local&x=1',
+			'http://fox43tv.com/category/news/virginia/feed/',
+			'http://wtvr.com/category/news/feed/',
+			'http://www.nbc12.com/Global/category.asp?C=134132&nav=0RZF&clienttype=rss',
+			'http://www.wdbj7.com/news/local/more-news/20465844?format=rss_2.0&view=feed',
+			'http://wsls.com/feed/',
+			'http://wset.com/news/local.rss',
+			'http://www.wcyb.com/14591266?format=rss_2.0&view=feed',
+			'http://wfirnews.com/feed',
+			'http://wsvaonline.com/feed/',
+			'http://wina.com/news/sections/local/feed',
+			'http://wlni.com/feed',
+			'http://www.heraldcourier.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local,news/local/*&f=rss',
+			'http://www.dailyprogress.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news*&f=rss',
+			'http://dailypress.feedsportal.com/c/34257/f/656251/index.rss',
+			'http://www.godanriver.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news,news/*&f=rss',
+			'http://www.fredericksburg.com/search/?q=&t=article&l=100&d=&d1=&d2=&s=start_time&sd=desc&nsa=eedition&c[]=news/blogs/weather,news/blogs/weather/*&f=rss',
+			'http://www.newsadvance.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c=news/local*&f=rss',
+			'http://rssfeeds.newsleader.com/staunton-news&x=1',
+			'http://www.nvdaily.com/news/feed',
+			'http://www.progress-index.com/news?template=rss&mime=xml',
+			'http://www.richmond.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=news/local*&f=rss',
+			'http://www.roanoke.com/search/?q=&t=article&l=100&d=&d1=&d2=&s=start_time&sd=desc&nsa=eedition&c[]=news/local/roanoke,news/local/roanoke/*&f=rss',
+			'http://www.southwesttimes.com/category/news/feed/',
+			'http://rssfeeds.usatoday.com/usatoday-newstopstories&x=1',
+			'http://feeds.feedburner.com/TheBlueGrayPress?format=xml',
+			'http://www.cavalierdaily.com/section/news.xml',
+			'http://www.collegiatetimes.com/search/?q=&t=article&l=10&d=&d1=&d2=&s=start_time&sd=desc&c[]=news,news/*&f=rss',
+			'http://www.commonwealthtimes.org/category/print-edition/news/feed/',
+			# 'http://www.galaxgazette.com/todaysnews/rss.xml',
+			'http://pilotonline.com/search/?q=&nsa=eedition&l=20&s=start_time&sd=desc&f=rss&c%5B%5D=news',
+			'http://www.henricocitizen.com/site/rss',
+			'http://www.blackenterprise.com/category/news/feed/',
+			'http://feeds.feedburner.com/PurcellvilleGazette?format=xml',
+			'http://southsidemessenger.net/feed/',
+			'http://eltiempolatino.com/rss/headlines/',
+						
+
+
 			)
 	for link in url:
 		d = feedparser.parse(link)
@@ -66,3 +85,4 @@ with psycopg2.connect("dbname ='feedparser' user ='admin' password= 'admin' host
 				dbconnect.commit()
 			except psycopg2.IntegrityError:
 				dbconnect.rollback()
+				print 'Already Stored'

@@ -97,9 +97,6 @@ with psycopg2.connect(database=url.path[1:],
 	for link in url:
 		d = feedparser.parse(link)
 
-		for link in url:
-		d = feedparser.parse(link)
-
 		for data in d.entries:
 
 

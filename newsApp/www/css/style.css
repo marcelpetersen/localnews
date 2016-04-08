@@ -313,10 +313,10 @@ button.button.ng-binding.button-assertive{
 	fill: dodgerblue;
 }
 
-
-
-
-
-
-
+@media screen and (min-width: 500px){
+	.padd{
+		padding-left: 12%;
+		padding-right: 12%;
+	}
+}
 

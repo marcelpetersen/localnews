@@ -184,7 +184,7 @@ angular.module('starter.controllers', ['ionic','angularMoment', 'angularDjangoRe
 
        $scope.popUp = function() {
    var alertPopup = $ionicPopup.alert({
-     title: 'Version 1.0.0',
+     title: 'Version 1.0.1',
      // template: 'Built With Love, By Fizzle :)'
    });
 
@@ -210,7 +210,7 @@ $ionicPlatform.ready(function(){
           if (ionic.Platform.isIOS()) {
               $window.open('https://itunes.apple.com/us/app/just-local-news/id1100162952?ls=1&mt=8'); // or itms://
           } else if (ionic.Platform.isAndroid()){
-              $window.open('market://details?id=com.fizzle.localnews');
+              $window.open('market://details?id=com.felixinetimi.localnews', '_system' );
           }
       }
 
